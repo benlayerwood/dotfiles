@@ -1,0 +1,36 @@
+. ~/.private_aliases
+
+#  ls
+alias ls='ls --color=always'
+alias ll='ls -l'
+alias la='ls -A'
+alias lg='ls -l --group-directories-first'
+alias lls='ls|less'
+
+# clipboard tool (xclip)
+alias setc="xclip -selection c"
+alias getc="xclip -selection c -o"
+
+
+# dotfile git repo
+alias gitdot='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# cisco VPN alias
+alias vpn='/opt/cisco/anyconnect/bin/vpn'
+
+# bluetooth headphones
+alias sonyconnect="bluetoothctl connect 38:18:4C:D4:A8:A8"
+alias sonydisconnect="bluetoothctl connect 38:18:4C:D4:A8:A8"
+
+# package managers
+alias pacman="pacman --color=always"
+alias paruc="paru --color=always"
+
+# pagers
+alias bat="bat -p"
+alias less="less -R"
+
+# start Oracle Virtualbox Machine
+vmstart(){
+   VBoxManage startvm --type headless "$1"
+}

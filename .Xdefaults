@@ -1,0 +1,61 @@
+xterm*geometry:           80x25
+xterm*faceName:           Source Code Pro:regular:pixelsize=18
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*termName:           xterm-256color
+xterm*eightBitInput:      true
+xterm*saveLines:          512
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          false
+xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*foreground:         white
+xterm*selectToClipboard:  true
+
+URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select
+URxvt.font:			xft:Source Code Pro:regular:pixelsize=18:antialias=true:hinting=true
+URxvt.scrollBar:  false
+URxvt*scrollBar_right:   false
+URxvt.scrollstyle: rxvt
+URxvt.scrollTtyOutput: true
+URxvt.clipboard.autocopy: true
+URxvt*transparent:       false
+URxvt.letterSpace: 0
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.perl-ext-common:vtewheel
+URxvt.iso14755: false
+URxvt.iso14755-52: false
+
+Xcursor.theme: macOSBigSur
+Xcursor.size: 30
+
+! special colors
+*.foreground:  #d0d0d0
+*.background:  #101010
+*.cursorColor:  #d0d0d0
+! black
+*.color0:      #000000
+*.color8:      #808080
+! red
+*.color1:      #cd3131
+*.color9:      #cd3131
+! green
+*.color2:      #33ff00
+*.color10:     #33ff00
+! yellow
+*.color3:      #e5e510
+*.color11:     #e5e510
+! blue
+*.color4:      #2472c8
+*.color12:     #2472c8
+! magenta
+*.color5:      #bc3fbc
+*.color13:     #bc3fbc
+! cyan
+*.color6:      #72b7df
+*.color14:     #72b7df
+! white
+*.color7:      #d0d0d0
+*.color15:     #ffffff
