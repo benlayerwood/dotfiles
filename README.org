@@ -7,7 +7,7 @@ These are my personal configuration files for various applications.
 * Shells
   * [[.bashrc]] ([[https://www.gnu.org/software/bash/][Bash]]) /rebirth of the shell/
   * [[.zshrc]] ([[https://wiki.archlinux.org/title/Zsh][Zsh]]) /the bourne again shell is bourne again/
-  * [[.aliases][ALIASES]] /used by both BASH and ZSH/
+  * [[.aliases]] /used by both BASH and ZSH/
 * Terminal Emulators
   * [[.Xdefaults]] /xterm and URxvt/
   * [[.config/alacritty]] ([[https://alacritty.org/][Alacritty]]) /rocks/
