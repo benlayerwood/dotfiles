@@ -1,10 +1,9 @@
 export EDITOR=/usr/bin/vim
 export _JAVA_AWT_WM_NONREPARENTING=1
-export PATH="$PATH:/home/ben/Android/Sdk/emulator/"
-export PATH="$PATH:/home/ben/.local/share/gem/ruby/3.0.0/bin/"
-export PATH="$PATH:/home/ben/.emacs.d/bin/"
-export PATH="$PATH:/home/ben/.local/bin"
-
+export PATH="$PATH:$HOME/Android/Sdk/emulator/"
+export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin/"
+export PATH="$PATH:$HOME/.emacs.d/bin/"
+export PATH="$PATH:$HOME/.local/bin"
 
 . ~/.aliases
 . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -14,7 +13,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 unsetopt NOMATCH
-zstyle :compinstall filename '/home/ben/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz add-zsh-hook
 autoload -Uz compinit
