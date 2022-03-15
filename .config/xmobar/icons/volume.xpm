@@ -1,0 +1,30 @@
+/* XPM */
+static char *volume[] = {
+/* columns rows colors chars-per-pixel */
+"20 20 4 1 ",
+"  c None",
+". c #FEFEFE",
+"X c #FEFEFF",
+"o c #FFFFFF",
+/* pixels */
+"                    ",
+"                    ",
+"                    ",
+"         oo    o    ",
+"        ooo    oo   ",
+"       o  o     oo  ",
+"     oo   o  o   o  ",
+"  oooo    o  oo  o  ",
+" oo       o   o  oo ",
+" oo       o   oo oo ",
+" oo       o   oo oo ",
+" oo       o   o  oo ",
+"  oooo    o  oo  o  ",
+"     oo   o      o  ",
+"       o  o     oo  ",
+"        ooo    oo   ",
+"         oo    o    ",
+"                    ",
+"                    ",
+"                    "
+};
