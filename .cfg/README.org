@@ -1,0 +1,22 @@
+#+TITLE: Dotfiles
+#+AUTHOR: Benjamin Schichtholz
+#+DATE: <2022-03-15 Di>
+
+These are my personal configuration files for various applications.
+
+* Shells
+  * [[.bashrc]] ([[https://www.gnu.org/software/bash/][Bash]]) /rebirth of the shell/
+  * [[.zshrc]] ([[https://wiki.archlinux.org/title/Zsh][Zsh]]) /the bourne again shell is bourne again/
+  * [[.aliases][ALIASES]] /used by both BASH and ZSH/
+* Terminal Emulators
+  * [[.Xdefaults]] /xterm and URxvt/
+  * [[.config/alacritty]] ([[https://alacritty.org/][Alacritty]]) /rocks/
+* Editors
+  * [[.vimrc]] ([[https://www.vim.org/][Vim]]) /learn it!/
+  * [[.doom.d]] ([[https://github.com/hlissner/doom-emacs][Doom Emacs]]) /the dark side plus cookies/
+* Window Managers
+  * [[.xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
+  * [[config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
+* Further Applications
+  * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automize display configuration/
+  * [[.config/gtk-3.0]] /gnome application theming/
