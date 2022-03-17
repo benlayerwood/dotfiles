@@ -50,5 +50,4 @@
 ;(unpin! t)
 
 (package! org-superstar)
-(package! all-the-icons-dired)
 (package! lsp-haskell)

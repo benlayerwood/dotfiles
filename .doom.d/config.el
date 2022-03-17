@@ -9,7 +9,6 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "Benjamin Schichtholz"
       user-mail-address "benjami.schichtholz@mni.thm.de")
-
 ;; Font configuration
 (setq doom-font (font-spec :family "Inconsolata" :size 21 :weight 'regular)
        doom-variable-pitch-font (font-spec :family "Roboto" :style "Regular" :size 12 :weight 'regular))
@@ -41,6 +40,7 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+(add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
 
 ;; hide markers for italic, bold (...) text in org mode
 (setq org-hide-emphasis-markers t)
@@ -95,10 +95,18 @@
                         (mu4e-trash-folder      . "/THM/Trash")
                         (mu4e-refile-folder     . "/THM/Archive")
                         (smtpmail-smtp-user     . "bhlz54")
-                        (user-mail-address      . "benjamin.schichhtolz@mni.thm.de")
-                        (user-full-name         . "Benjamin Schichtholz"))
+                        (user-mail-address      . "benjamin.schichtholz@mni.thm.de")
+                        (user-full-name         . "Benjamin Schichtholz")
+                        (smtpmail-smtp-server   . "mailgate.thm.de")
+                        (smtpmail-smtp-service  . 587)
+                        (smtpmail-stream-type   . starttls)
+                        (smtpmail-auth-supported . 'password)
+                        )
                 t
 )
+
+(setq shr-use-fonts nil)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;; - `load!' for loading external *.el files relative to this one
 ;; - `use-package!' for configuring packages
