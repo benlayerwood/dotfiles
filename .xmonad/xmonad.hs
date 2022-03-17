@@ -242,13 +242,15 @@ myManageHook = composeAll
     , resource  =? "desktop_window"   --> doFloat
     , resource  =? "blueman-applet"   --> doF (W.shift "ext")
     , resource  =? "Blueman-applet"   --> doF (W.shift "ext")
-    , resource  =? "pluma"            --> doFloat 
---    , resource  =? "evince"            --> doF (W.shift "2") 
-    , resource  =? "JabRef"            --> doFloat 
-    , resource  =? "synapse"            --> doFloat 
-    , resource  =? "albert"            --> doFloat 
-    , (stringProperty "_NET_WM_NAME") =? "Emulator" --> doFloat 
-    , (stringProperty "WM_NAME") =? "Open Folder" --> doFloat 
+    , resource  =? "pluma"            --> doFloat
+    , resource  =? "Grid"            --> doFloat
+--    , resource  =? "evince"            --> doF (W.shift "2")
+    , resource  =? "JabRef"           --> doFloat
+    , resource  =? "synapse"          --> doFloat
+    , resource  =? "albert"           --> doFloat
+    , (stringProperty "_NET_WM_NAME")    =? "Emulator"    --> doFloat
+    , (stringProperty "WM_NAME")         =? "Open Folder" --> doFloat
+    , (stringProperty "WM_NAME(STRING)") =? "Grid" --> doFloat
 --  , scratchpadManageHook (W.RationalRect 0.2 0.2 0.6 0.7)
     , namedScratchpadManageHook myScratchPads
     ]
@@ -264,6 +266,8 @@ myLogHook = return ()
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
+                spawn "/bin/sh ~/.xmonad/xrandrscript.sh"
+                spawn "bluetoothctl power on"
                 setDefaultCursor xC_arrow
                 spawn "bluetoothctl power on"
                 spawn "xscreensaver --no-splash"
