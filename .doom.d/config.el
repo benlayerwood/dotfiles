@@ -8,10 +8,10 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Benjamin Schichtholz"
-      user-mail-address "benjami.schichtholz@mni.thm.de")
+      user-mail-address "schichtholz@mailbox.org")
 ;; Font configuration
 (setq doom-font (font-spec :family "Inconsolata" :size 21 :weight 'regular)
-       doom-variable-pitch-font (font-spec :family "Roboto" :style "Regular" :size 12 :weight 'regular))
+       doom-variable-pitch-font (font-spec :family "Fira Sans" :style "Regular" :size 18 :weight 'regular))
 
 (add-hook 'text-mode-hook
           (lambda() (set-face-attribute 'italic nil :family "Liberation Mono" :height 0.9 :width 'condensed :slant 'italic)
@@ -19,8 +19,8 @@
 
 ;; ui theme
 ;;(setq doom-theme 'doom-monokai-spectrum)
-;;(setq doom-theme 'doom-Iosvkem)
-(setq doom-theme 'doom-peacock)
+(setq doom-theme 'doom-Iosvkem)
+;;(setq doom-theme 'doom-peacock)
 
 ;; org-directory
 (setq org-directory "~/Documents/Org/")
@@ -104,8 +104,25 @@
                         )
                 t
 )
+(set-email-account! "mailbox"
+                      '((user-full-name         . "Benjamin Schichtholz")
+                        (user-mail-address      . "schichtholz@mailbox.org")
+                        (smtpmail-smtp-user     . "schichtholz@mailbox.org")
+                        (smtpmail-smtp-server   . "smtp.mailbox.org")
+                        )
+                t
+)
+(setq smtpmail-debug-info t)
+(setq line-spacing 0.2)
 
-(setq shr-use-fonts nil)
+;; org mode headings
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.3))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;; - `load!' for loading external *.el files relative to this one
