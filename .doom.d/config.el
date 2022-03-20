@@ -11,7 +11,7 @@
       user-mail-address "schichtholz@mailbox.org")
 ;; Font configuration
 (setq doom-font (font-spec :family "Inconsolata" :size 21 :weight 'regular)
-       doom-variable-pitch-font (font-spec :family "Fira Sans" :style "Regular" :size 18 :weight 'regular))
+       doom-variable-pitch-font (font-spec :family "Liberation Sans" :style "Regular" :size 18 :weight 'regular))
 
 (add-hook 'text-mode-hook
           (lambda() (set-face-attribute 'italic nil :family "Liberation Mono" :height 0.9 :width 'condensed :slant 'italic)
@@ -47,6 +47,12 @@
 
 ;; custom keybindings
 (global-set-key (kbd "C-x x") 'kill-this-buffer)
+(map! :leader
+      :desc "Launch Eshell"
+      "o E" #'eshell)
+(map! :leader
+      :desc "Launch Shell"
+      "s h" #'shell)
 
 ;; doom modeline configuration
 (setq doom-modeline-bar-width 7)
@@ -69,11 +75,6 @@
 
 ;; custom splash image
 (setq fancy-splash-image "~/Pictures/logos/black-hole-doom.png")
-
-;; configure eshell
-(map! :leader
-      :desc "Launch Eshell"
-      "o E" #'eshell)
 
 (setq
  eshell-prompt-function (lambda nil
@@ -105,13 +106,93 @@
                 t
 )
 (set-email-account! "mailbox"
-                      '((user-full-name         . "Benjamin Schichtholz")
+                      '((mu4e-sent-folder       . "/Mailbox/Sent")
+                        (mu4e-drafts-folder     . "/Mailbox/Drafts")
+                        (mu4e-trash-folder      . "/Mailbox/Trash")
+                        (mu4e-refile-folder     . "/Mailbox/Archive")
+                        (user-full-name         . "Benjamin Schichtholz")
                         (user-mail-address      . "schichtholz@mailbox.org")
                         (smtpmail-smtp-user     . "schichtholz@mailbox.org")
                         (smtpmail-smtp-server   . "smtp.mailbox.org")
                         )
                 t
 )
+
+;;------------------------------------------------
+;;------------MULTI SMTP CONFIGURATION------------
+;;------------------------------------------------
+;; Configure known SMTP servers. Emacs prompts for passwords and saves them in ~/.authinfo
+(setq smtp-accounts          ;; Format: Sender Mail address - SMTP Server - Port - Username
+      '(("schichtholz@mailbox.org" "smtp.mailbo.org" 587 "schichtholz@mailbox.org")
+        ("benjamin.schichtholz@mni.thm.de" "mailgate.thm.de" 587 "bhlz54")
+        ))
+
+;; Set the SMTP Server according to the mail address we use for sending
+(defun set-smtp-server-message-send-and-exit ()
+  "Set SMTP server from list of multiple ones and send mail."
+  (interactive)
+  (message-remove-header "X-Message-SMTP-Method") ;; Remove. We always determine it by the From field
+  (let ((sender
+         (message-fetch-field "From")))
+    (loop for (addr server port usr) in smtp-accounts
+          when (string-match addr sender)
+          do (message-add-header (format "X-Message-SMTP-Method: smtp %s %d %s" server port usr)))
+    (let ((xmess
+           (message-fetch-field "X-Message-SMTP-Method")))
+      (if xmess
+          (progn
+            (message (format "Sending message using '%s' with config '%s'" sender xmess))
+            (message-send-and-exit))
+        (error "Could not find SMTP Server for this Sender address: %s. You might want to correct it or add it to the SMTP Server list 'smtp-accounts'" sender)))))
+
+;; Send emails via multiple servers
+(defun local-gnus-compose-mode ()
+  "Keys."
+  (local-set-key (kbd "C-c C-c")  'set-smtp-server-message-send-and-exit))
+
+;; set in group mode hook
+(add-hook 'gnus-message-setup-hook 'local-gnus-compose-mode)
+
+;; Set the SMTP Server according to the mail address we use for sending
+(defun set-smtp-server-message-send-and-exit ()
+  "Set SMTP server from list of multiple ones and send mail."
+  (interactive)
+  (message-remove-header "X-Message-SMTP-Method") ;; Remove. We always determine it by the From field
+  (let ((sender
+         (message-fetch-field "From")))
+    (loop for (addr server port usr) in smtp-accounts
+          when (string-match addr sender)
+          do (message-add-header (format "X-Message-SMTP-Method: smtp %s %d %s" server port usr)))
+    (let ((xmess
+           (message-fetch-field "X-Message-SMTP-Method")))
+      (if xmess
+          (progn
+            (message (format "Sending message using '%s' with config '%s'" sender xmess))
+            (message-send-and-exit))
+        (error "Could not find SMTP Server for this Sender address: %s. You might want to correct it or add it to the SMTP Server list 'smtp-accounts'" sender)))))
+
+;; Send emails via multiple servers
+(defun local-gnus-compose-mode ()
+  "Keys."
+  (local-set-key (kbd "C-c C-c")  'set-smtp-server-message-send-and-exit))
+;;------------------------------------------------
+
+  ;; set in group mode hook
+  (add-hook 'gnus-message-setup-hook 'local-gnus-compose-mode)
+;; org-msg configuration
+;; Documentation: https://github.com/jeremy-compostella/org-msg
+(setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+	org-msg-startup "hidestars indent inlineimages"
+	org-msg-default-alternatives '((new		. (text))
+				       (reply-to-html	. (text html))
+				       (reply-to-text	. (text)))
+	org-msg-convert-citation t
+)
+(setq message-signature-separator "^$")
+(setq gnus-signature-separator "^$")
+(setq mu4e-compose-signature "Mit freundlichen Grüßen,\nBenjamin Schichtholz")
+(org-msg-mode)
+
 (setq smtpmail-debug-info t)
 (setq line-spacing 0.2)
 
@@ -123,6 +204,9 @@
   '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
 )
+
+;; Bash as default shell
+(setq shell-file-name "/bin/bash")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;; - `load!' for loading external *.el files relative to this one
