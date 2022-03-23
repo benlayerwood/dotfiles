@@ -6,7 +6,9 @@ These are my personal configuration files for various applications.
 
 ** Shells
   * [[.bashrc]] ([[https://www.gnu.org/software/bash/][Bash]]) /rebirth of the shell/
+[[file:Pictures/Dotfiles/bash.png]]
   * [[.zshrc]] ([[https://wiki.archlinux.org/title/Zsh][Zsh]]) /the bourne again shell is bourne again/
+[[file:Pictures/Dotfiles/zsh.png]]
   * [[.aliases]] /used by both BASH and ZSH/
 ** Terminal Emulators
   * [[.Xdefaults]] /xterm and URxvt/
