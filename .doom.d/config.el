@@ -11,7 +11,7 @@
       user-mail-address "schichtholz@mailbox.org")
 ;; Font configuration
 (setq doom-font (font-spec :family "Inconsolata" :size 21 :weight 'regular)
-       doom-variable-pitch-font (font-spec :family "Liberation Sans" :style "Regular" :size 18 :weight 'regular))
+       doom-variable-pitch-font (font-spec :family "Source Sans Pro" :style "Regular" :size 18 :weight 'regular))
 
 (add-hook 'text-mode-hook
           (lambda() (set-face-attribute 'italic nil :family "Liberation Mono" :height 0.9 :width 'condensed :slant 'italic)
@@ -53,6 +53,12 @@
 (map! :leader
       :desc "Launch Shell"
       "s h" #'shell)
+(map! :leader
+      :desc "Export latex beamer to pdf"
+      "l b" #'org-beamer-export-to-pdf)
+(map! :leader
+      :desc "Hide Modeline"
+      "m h" #'hide-mode-line-mode)
 
 ;; doom modeline configuration
 (setq doom-modeline-bar-width 7)
@@ -198,15 +204,21 @@
 
 ;; org mode headings
 (custom-set-faces
-  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.3))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
-  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
+  '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
 )
 
 ;; Bash as default shell
 (setq shell-file-name "/bin/bash")
+
+;; Use custom image width in org mode
+(setq org-image-actual-width nil)
+
+;; Use german toc description
+(setq org-beamer-outline-frame-title "Inhaltsverzeichnis")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;; - `load!' for loading external *.el files relative to this one

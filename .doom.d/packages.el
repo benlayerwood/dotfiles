@@ -51,3 +51,5 @@
 
 (package! org-superstar)
 (package! lsp-haskell)
+(package! ox-twbs)
+(package! ob-kotlin)
