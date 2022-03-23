@@ -2,6 +2,7 @@
 import XMonad
 import XMonad.Util.Run
 import XMonad.Config.Desktop
+import XMonad.Actions.NoBorders
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.Fullscreen
@@ -26,7 +27,6 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.FloatKeys
 import XMonad.Hooks.WorkspaceHistory
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Prompt
@@ -80,13 +80,14 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_space    ), spawn "synapse")
 --  , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
     , ((modm,               xK_Tab      ), windows W.focusDown)
+    , ((modm .|. shiftMask, xK_b        ), withFocused toggleBorder)
     , ((modm .|. shiftMask, xK_d        ), spawn "emacs")
     , ((modm .|. shiftMask, xK_Tab      ), windows W.focusUp)
     , ((modm,               xK_j        ), windows W.focusDown)
     , ((modm,               xK_Page_Up  ), changeWorkspace (-1))
     , ((modm,               xK_Page_Down), changeWorkspace 1 )
     , ((modm .|. shiftMask, xK_Return   ), windows W.swapMaster)
-    , ((modm .|. shiftMask, xK_j        ), windows W.swapDown)  
+    , ((modm .|. shiftMask, xK_j        ), windows W.swapDown)
     , ((modm .|. shiftMask, xK_k        ), windows W.swapUp    )
     , ((modm .|. shiftMask, xK_x        ), confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
     , ((noModMask, xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc 10")
@@ -99,8 +100,10 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm,               xK_l     ), sendMessage Expand)
     , ((modm,               xK_plus  ), sendMessage ToggleStruts)
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
-    , ((modm,               xK_d     ), withFocused (keysResizeWindow (-30,-30) (1,1)))
-    , ((modm,               xK_s     ), withFocused (keysResizeWindow (30,30) (1,1)))
+    , ((modm,               xK_d     ), withFocused (keysResizeWindow (50,0) (0,0)))
+    , ((modm,               xK_s     ), withFocused (keysResizeWindow (0,50) (0,0)))
+    , ((modm .|. shiftMask, xK_d     ), withFocused (keysResizeWindow (-50,0)(0,0)))
+    , ((modm .|. shiftMask, xK_s     ), withFocused (keysResizeWindow (0,-50) (0,0)))
 --    , ((modm .|. shiftMask, xK_t     ), withFocused $ windows . W.float)
     , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
@@ -109,7 +112,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
     , ((modm .|. shiftMask , xK_Up   ), spawn "amixer set Master 7%+ unmute")
     , ((modm .|. shiftMask , xK_Down ), spawn "amixer set Master 7%- unmute")
-    , ((modm,               xK_g     ), goToSelected defaultGSConfig)
+    , ((modm,               xK_g     ), goToSelected def)
     ]
     ++
     -- mod-[1..9], Switch to workspace N
@@ -158,11 +161,11 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm]
     manageTerm = customFloating $ W.RationalRect 0.2 0.2 0.6 0.7
 ------------------------------------------------------------------------
 -- XPConfig Theme
-myFont = "xft:Source Sans Pro:size=16:weight=Semibold"
+myFont = "xft:Source Sans Pro:size=15:weight=Semibold"
 
 myXPConfig :: XPConfig
-myXPConfig = 
-   XPC { 
+myXPConfig =
+   XPC {
           font                  = myFont
         , bgColor               = myNormalBorderColor
         , fgColor               = myThemeColor
@@ -243,6 +246,7 @@ myManageHook = composeAll
     , resource  =? "blueman-applet"   --> doF (W.shift "ext")
     , resource  =? "Blueman-applet"   --> doF (W.shift "ext")
     , resource  =? "pluma"            --> doFloat
+    , resource  =? "zoom"            --> doFloat
     , resource  =? "Grid"            --> doFloat
 --    , resource  =? "evince"            --> doF (W.shift "2")
     , resource  =? "JabRef"           --> doFloat
@@ -271,7 +275,7 @@ myStartupHook = do
                 setDefaultCursor xC_arrow
                 spawn "bluetoothctl power on"
                 spawn "xscreensaver --no-splash"
-                spawn $ "trayer --monitor 0 --edge top --align right --margin 15 --widthtype request --padding 5 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x212121 --height 30"
+                spawn "trayer --monitor 0 --edge top --align right --margin 15 --widthtype request --padding 0 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x212121 --height 30"
                 spawn "blueman-applet"
                 spawn "nm-applet"
                 spawn "killall volumeicon;volumeicon"
