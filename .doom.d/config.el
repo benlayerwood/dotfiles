@@ -43,25 +43,6 @@
   (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
   (add-to-list 'auto-minor-mode-alist '("android-stack.png" . hide-mode-line-mode))
 
-(unless (boundp 'myconf-magit-hook?)
-  ;; Only run this hook once, even if Emacs reloads configuration.
-  (eval-after-load 'magit
-    '(let ((myconf-path (expand-file-name "%HOME/.cfg/")))
-       (when (and (file-exists-p myconf-path))
-         ;; Insert git directory and working tree into magit's git
-         ;; global arguments, while preserving magit's existing
-         ;; command-line settings; `add-to-list' adds to the
-         ;; beginning of the list.
-         (add-to-list 'magit-git-global-arguments
-                      (format "--work-tree=$HOME"
-                              ;; Drop trailing slash.
-                              (directory-file-name
-                               ;; Get directory part (`dirname`).
-                               (file-name-directory myconf-path))))
-         (add-to-list 'magit-git-global-arguments
-                      (format "--git-dir=$HOME/.cfg/" myconf-path)))))
-  (setq myconf-magit-hook? t))
-
   (global-set-key (kbd "C-x x") 'kill-this-buffer)
   (map! :leader
         :desc "Launch Eshell"
@@ -135,8 +116,61 @@
                     (mu4e-sent-folder . "/KIT/Gesendete Elemente")
                     (mu4e-drafts-folder . "/KIT/Entw&APw-rfe")))))
 
+(defvar my-mu4e-account-alist
+  '(("mailbox"
+     (mu4e-sent-folder "/Mailbox/Sent")
+     (mu4e-drafts-folder "/Mailbox/Drafts")
+     (user-mail-address "schichtholz@mailbox.org")
+     (smtpmail-default-smtp-server "smtp.mailbox.org")
+     (smtpmail-local-domain "mailbox.org")
+     (smtpmail-smtp-user "schichtholz@mailbox.org")
+     (smtpmail-smtp-server "smtp.mailbox.org")
+     (smtpmail-stream-type starttls)
+     (smtpmail-smtp-service 587))
+    ("kit"
+     (mu4e-sent-folder "/KIT/Gesendete Elemente")
+     (mu4e-drafts-folder "/KIT/Entw&APw-rfe")
+     (user-mail-address "benjamin.schichtholz@student.kit.edu")
+     (smtpmail-default-smtp-server "smtp.kit.edu")
+     (smtpmail-local-domain "smtp.kit.edu")
+     (smtpmail-smtp-user "upqgd@student.kit.edu")
+     (smtpmail-smtp-server "smtp.kit.edu")
+     (smtpmail-stream-type starttls)
+     (smtpmail-smtp-service 587))))
+
+(defun my-mu4e-set-account ()
+  "Set the account for composing a message."
+  (let* ((account
+          (if mu4e-compose-parent-message
+              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                (string-match "/\\(.*?\\)/" maildir)
+                (match-string 1 maildir))
+            (completing-read (format "Compose with account: (%s) "
+                                     (mapconcat #'(lambda (var) (car var))
+                                                my-mu4e-account-alist "/"))
+                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                             nil t nil nil (caar my-mu4e-account-alist))))
+         (account-vars (cdr (assoc account my-mu4e-account-alist))))
+    (if account-vars
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars)
+      (error "No email account found"))))
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
   (setq mu4e-get-mail-command "mbsync -a")
 
   (setq mu4e-update-interval 300)
+
+(setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+  org-msg-startup "hidestars indent inlineimages"
+  org-msg-default-alternatives '((new . (text))
+  (reply-to-html . (text html))
+  (reply-to-text . (text)))
+  org-msg-convert-citation t
+)
+(org-msg-mode)
 
   (setq mu4e-compose-signature "Mit freundlichen Grüßen,\nBenjamin Schichtholz")
