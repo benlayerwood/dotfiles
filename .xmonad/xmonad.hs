@@ -80,9 +80,10 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_space    ), spawn "synapse")
 --  , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
     , ((modm,               xK_Tab      ), windows W.focusDown)
-    , ((modm .|. shiftMask, xK_b        ), withFocused toggleBorder)
-    , ((modm .|. shiftMask, xK_d        ), spawn "emacs")
     , ((modm .|. shiftMask, xK_Tab      ), windows W.focusUp)
+    , ((modm .|. shiftMask, xK_b        ), sequence_ [withFocused toggleBorder, withFocused $ windows . W.sink])
+    , ((modm,               xK_t        ), withFocused $ windows . W.sink)
+    , ((modm .|. shiftMask, xK_m        ), spawn "emacs")
     , ((modm,               xK_j        ), windows W.focusDown)
     , ((modm,               xK_Page_Up  ), changeWorkspace (-1))
     , ((modm,               xK_Page_Down), changeWorkspace 1 )
@@ -99,7 +100,6 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm,               xK_h     ), sendMessage Shrink)
     , ((modm,               xK_l     ), sendMessage Expand)
     , ((modm,               xK_plus  ), sendMessage ToggleStruts)
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
     , ((modm,               xK_d     ), withFocused (keysResizeWindow (50,0) (0,0)))
     , ((modm,               xK_s     ), withFocused (keysResizeWindow (0,50) (0,0)))
     , ((modm .|. shiftMask, xK_d     ), withFocused (keysResizeWindow (-50,0)(0,0)))
@@ -122,7 +122,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     ++
     -- switch to screen
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_r, xK_e] [0..]
+        | (key, sc) <- zip [xK_e, xK_r, xK_w] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
     -- swap screen window
@@ -246,8 +246,10 @@ myManageHook = composeAll
     , resource  =? "blueman-applet"   --> doF (W.shift "ext")
     , resource  =? "Blueman-applet"   --> doF (W.shift "ext")
     , resource  =? "pluma"            --> doFloat
-    , resource  =? "zoom"            --> doFloat
-    , resource  =? "Grid"            --> doFloat
+    , className =? "VirtualBoxVM"     --> doFloat
+    , className =? "zoom"             --> doFloat
+    , className =? "zoom "            --> doFloat
+    , resource  =? "Grid"             --> doFloat
 --    , resource  =? "evince"            --> doF (W.shift "2")
     , resource  =? "JabRef"           --> doFloat
     , resource  =? "synapse"          --> doFloat
@@ -270,17 +272,17 @@ myLogHook = return ()
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
-                spawn "/bin/sh ~/.xmonad/xrandrscript.sh"
+                spawn "/bin/bash ~/.xmonad/xrandrscript.sh; ~/.fehbg"
+                spawn "/bin/bash ~/.fehbg"
                 spawn "bluetoothctl power on"
                 setDefaultCursor xC_arrow
                 spawn "bluetoothctl power on"
                 spawn "xscreensaver --no-splash"
-                spawn "trayer --monitor 0 --edge top --align right --margin 15 --widthtype request --padding 0 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x212121 --height 30"
+                spawn "trayer --monitor 1 --edge top --align right --margin 15 --widthtype request --padding 0 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x212121 --height 30"
                 spawn "blueman-applet"
                 spawn "nm-applet"
                 spawn "killall volumeicon;volumeicon"
-                spawn "/bin/sh ~/.fehbg"
-                spawn "dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY"
+                spawn "ayatana-webmail"
 --              spawn "picom --config ~/.config/picom/picom.conf"
 
 ------------------------------------------------------------------------
