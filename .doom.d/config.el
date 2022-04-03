@@ -91,7 +91,7 @@
 
   (setq mu4e-contexts
         `(,(make-mu4e-context
-            :name "mailbox"
+            :name "Mailbox"
             :match-func (lambda (msg)
                           (when msg
                             (string-prefix-p "/Mailbox" (mu4e-message-field msg :maildir))))
@@ -102,7 +102,7 @@
                     (mu4e-drafts-folder . "/Mailbox/Drafts"))),
 
         (make-mu4e-context
-            :name "kit"
+            :name "KIT"
             :match-func (lambda (msg)
                             (when msg
                             (string-prefix-p "/KIT" (mu4e-message-field msg :maildir))))
@@ -113,7 +113,7 @@
                     (mu4e-drafts-folder . "/KIT/Entw&APw-rfe")))))
 
 (defvar my-mu4e-account-alist
-  '(("mailbox"
+  '(("Mailbox"
      (mu4e-sent-folder "/Mailbox/Sent")
      (mu4e-drafts-folder "/Mailbox/Drafts")
      (user-mail-address "schichtholz@mailbox.org")
@@ -123,7 +123,7 @@
      (smtpmail-smtp-server "smtp.mailbox.org")
      (smtpmail-stream-type starttls)
      (smtpmail-smtp-service 587))
-    ("kit"
+    ("KIT"
      (mu4e-sent-folder "/KIT/Gesendete Elemente")
      (mu4e-drafts-folder "/KIT/Entw&APw-rfe")
      (user-mail-address "benjamin.schichtholz@student.kit.edu")
