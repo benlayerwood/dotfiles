@@ -14,10 +14,6 @@
             (lambda() (set-face-attribute 'italic nil :family "Liberation Mono" :height 0.9 :width 'condensed :slant 'italic)
   ))
 
-  ;;(setq doom-theme 'doom-monokai-spectrum)
-  ;;(setq doom-theme 'doom-Iosvkem)
-  ;;(setq doom-theme 'doom-peacock)
-  ;;(setq doom-theme 'doom-material-dark)
   (setq doom-theme 'doom-old-hope)
 
   (setq display-line-numbers-type 'relative)

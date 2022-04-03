@@ -39,14 +39,26 @@ Add hook to set italic font
   ))
 #+end_src
 ** Theme
-A list of the preferred doom themes. The current selection is uncommented.
+Current theme:
 #+begin_src emacs-lisp
-  ;;(setq doom-theme 'doom-monokai-spectrum)
-  ;;(setq doom-theme 'doom-Iosvkem)
-  ;;(setq doom-theme 'doom-peacock)
-  ;;(setq doom-theme 'doom-material-dark)
   (setq doom-theme 'doom-old-hope)
 #+end_src
+
+Preferred dark themes:
+- doom-monokai-spectrum
+- doom-Iosvkem
+- doom-peacock
+- doom-material-dark
+- doom-xcode
+- doom-badger
+Preferred light themes:
+- doom-acario-light
+- doom-one-light
+- doom-ayu-light
+- doom-ayu-light
+- tdsh-light
+- dichromacy
+
 ** Editor
 Set line numbers, spacing and tab width
 #+begin_src emacs-lisp
