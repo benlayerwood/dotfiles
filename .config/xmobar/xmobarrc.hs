@@ -60,7 +60,7 @@ Config {font = "xft:Roboto:size=12:style=Semibold"
                                        , "--mediums", "<fc=#eba428><fn=3></fn></fc>"
                                        , "--highs", "<fc=#49d23b><fn=3></fn></fc>"
                              ] 50,
-          Run WeatherX "EDGS"
+          Run WeatherX "EDSB"
              [ ("clear", "")
              , ("sunny", "")
              , ("", "")
@@ -80,7 +80,7 @@ Config {font = "xft:Roboto:size=12:style=Semibold"
              , "-L","10", "-H", "25", "--normal", "lightgreen"
              , "--high", "lightgoldenrod4", "--low", "lightblue"]
              18000,
-            --https://tgftp.nws.noaa.gov/weather/current/EDGS.html
+            --https://tgftp.nws.noaa.gov/weather/current/EDSB.html
            Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
                              , ("us"         , "<fc=#8B0000>US</fc>")
                              ],
@@ -93,7 +93,7 @@ Config {font = "xft:Roboto:size=12:style=Semibold"
        , alignSep = "}{"
        , template = " %UnsafeStdinReader%\
                     \}\
-                    \%EDGS%\
+                    \%EDSB%\
                     \<fc=#3b3b3b,#212121><fn=4></fn></fc><fn=5>\
                     \<fc=#46dbf1,#3b3b3b>  %date%  </fc></fn>\
                     \<fc=#3b3b3b,#212121><fn=4></fn></fc> \
