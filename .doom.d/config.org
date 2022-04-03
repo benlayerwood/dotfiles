@@ -170,7 +170,7 @@ Bash as default shell
 #+end_src
 ** Accounts
 [[https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html][Multiple Accounts]]
-Mail contexts
+*** Contexts
 #+begin_src emacs-lisp
   (setq mu4e-contexts
         `(,(make-mu4e-context
@@ -196,7 +196,7 @@ Mail contexts
                     (mu4e-drafts-folder . "/KIT/Entw&APw-rfe")))))
 #+end_src
 
-SMTP configuration
+*** SMTP
 #+begin_src emacs-lisp
 (defvar my-mu4e-account-alist
   '(("mailbox"
