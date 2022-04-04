@@ -56,7 +56,7 @@ Preferred light themes:
 - doom-one-light
 - doom-ayu-light
 - doom-ayu-light
-- tdsh-light
+- tsdh-light
 - dichromacy
 
 ** Editor
