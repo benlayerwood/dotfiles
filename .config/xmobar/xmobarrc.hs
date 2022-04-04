@@ -95,7 +95,7 @@ Config {font = "xft:Roboto:size=12:style=Semibold"
                     \}\
                     \%EDSB%\
                     \<fc=#3b3b3b,#212121><fn=4></fn></fc><fn=5>\
-                    \<fc=#46dbf1,#3b3b3b>  %date%  </fc></fn>\
+                    \<fc=#dd9b6e,#3b3b3b>  %date%  </fc></fn>\
                     \<fc=#3b3b3b,#212121><fn=4></fn></fc> \
                     \%uptime%\
                     \{\

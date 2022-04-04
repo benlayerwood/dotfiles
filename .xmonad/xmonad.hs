@@ -46,8 +46,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myModMask       = mod4Mask
 
 myNormalBorderColor  = "#242424"
-myThemeColor = "#46dbf1"
---myThemeColor = "#ffd34a"
+myThemeColor = "#dd9b6e"
 
 myBorderWidth = 2
 
