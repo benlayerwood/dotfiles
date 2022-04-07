@@ -39,6 +39,7 @@ import qualified Data.Map        as M
 
 import XMonad.Util.Cursor
 import Constants
+import Theme
 import System.Exit (exitSuccess)
 
 windowCount :: X (Maybe String)
@@ -46,7 +47,6 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myModMask       = mod4Mask
 
 myNormalBorderColor  = "#242424"
-myThemeColor = "#dd9b6e"
 
 myBorderWidth = 2
 
@@ -186,18 +186,6 @@ myXPConfig =
         , defaultPrompter       = id
         , sorter                = const id
      }
-
-myTheme :: Theme
-myTheme = def
-  { activeColor = myThemeColor
-  , activeBorderColor = myThemeColor
-  , activeTextColor = myThemeColor
-  , inactiveBorderColor = "#242424"
-  , inactiveTextColor = "#242424"
-  , inactiveColor = "#242424"
-  , decoWidth = 3
-  , decoHeight = 3
-  }
 
 ------------------------------------------------------------------------
 -- Window rules:
