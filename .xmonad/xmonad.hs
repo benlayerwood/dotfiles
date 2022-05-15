@@ -17,7 +17,11 @@ import XMonad.Util.Types
 import XMonad.Util.WorkspaceCompare
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
+import XMonad.Util.NamedWindows (getName)
 import Data.Monoid
+import Data.List (sortBy)
+import Data.Function (on)
+import Data.Maybe (fromMaybe)
 import System.Exit
 import Control.Monad
 
@@ -66,56 +70,54 @@ myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed |||
 -- and https://hackage.haskell.org/package/X11-1.10.2/docs/Graphics-X11-ExtraTypes-XF86.html
 myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     [ ((modm , xK_Return), spawn $ XMonad.terminal conf)
-    , ((modm .|. shiftMask, xK_z        ), spawn "xmonad --recompile; xmonad --restart")
-    , ((modm,               xK_c        ), spawn "gnome-calendar")
-    , ((modm,               xK_b        ), spawn "firefox")
-    , ((modm,               xK_n        ), spawn "nemo")
-    , ((modm,               xK_m        ), spawn "emacs")
-    , ((modm,               xK_space    ), spawn "rofi -columns 2 -show-icons -modi drun -show drun")
-    , ((modm .|. shiftMask, xK_q        ), kill)
---  , ((modm .|. shiftMask, xK_t        ), scratchpadSpawnActionCustom "alacritty --config-file $HOME/.config/alacritty/alacritty-scratchpad.yml")
-    , ((modm .|. shiftMask, xK_t        ), namedScratchpadAction myScratchPads "terminal")
-    , ((modm,               xK_p        ), sendMessage NextLayout)
-    , ((modm .|. shiftMask, xK_space    ), spawn "synapse")
---  , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    , ((modm,               xK_Tab      ), windows W.focusDown)
-    , ((modm .|. shiftMask, xK_Tab      ), windows W.focusUp)
-    , ((modm .|. shiftMask, xK_b        ), sequence_ [withFocused toggleBorder, withFocused $ windows . W.sink])
-    , ((modm,               xK_t        ), withFocused $ windows . W.sink)
-    , ((modm,               xK_j        ), windows W.focusDown)
-    , ((modm,               xK_Page_Up  ), changeWorkspace (-1))
-    , ((modm,               xK_Page_Down), changeWorkspace 1 )
-    , ((modm .|. shiftMask, xK_Return   ), windows W.swapMaster)
-    , ((modm .|. shiftMask, xK_j        ), windows W.swapDown)
-    , ((modm .|. shiftMask, xK_k        ), windows W.swapUp    )
-    , ((modm .|. shiftMask, xK_x        ), confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
+    , ((modm,               xK_c           ), spawn "gnome-calendar")
+    , ((modm,               xK_b           ), spawn "firefox")
+    , ((modm,               xK_n           ), spawn "nemo")
+    , ((modm,               xK_m           ), spawn "emacs")
+    , ((modm,               xK_p           ), sendMessage NextLayout)
+    , ((modm,               xK_t           ), withFocused $ windows . W.sink)
+    , ((modm,               xK_g           ), goToSelected def)
+    , ((modm,               xK_j           ), windows W.focusDown)
+    , ((modm,               xK_h           ), sendMessage Shrink)
+    , ((modm,               xK_l           ), sendMessage Expand)
+    , ((modm,               xK_d           ), withFocused (keysResizeWindow (50,0) (0,0)))
+    , ((modm,               xK_s           ), withFocused (keysResizeWindow (0,50) (0,0)))
+    , ((modm,               xK_Tab         ), windows W.focusDown)
+    , ((modm,               xK_Page_Up     ), changeWorkspace (-1))
+    , ((modm,               xK_Page_Down   ), changeWorkspace 1 )
+    , ((modm,               xK_plus        ), sendMessage ToggleStruts)
+    , ((modm,               xK_comma       ), sendMessage (IncMasterN 1))
+    , ((modm,               xK_period      ), sendMessage (IncMasterN (-1)))
+    , ((modm,               xK_space       ), spawn "rofi -columns 2 -show-icons -modi drun -show drun")
+    , ((modm,               xK_ssharp      ), windows $ W.greedyView "b")
+    , ((modm,               xK_f           ), setScreenWindowSpacing 0)
+    , ((modm .|. shiftMask, xK_b           ), sequence_ [withFocused toggleBorder, withFocused $ windows . W.sink])
+    , ((modm .|. shiftMask, xK_q           ), kill)
+    , ((modm .|. shiftMask, xK_t           ), namedScratchpadAction myScratchPads "terminal")
+    , ((modm .|. shiftMask, xK_z           ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm .|. shiftMask, xK_j           ), windows W.swapDown)
+    , ((modm .|. shiftMask, xK_k           ), windows W.swapUp    )
+    , ((modm .|. shiftMask, xK_x           ), confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask, xK_d           ), withFocused (keysResizeWindow (-50,0)(0,0)))
+    , ((modm .|. shiftMask, xK_s           ), withFocused (keysResizeWindow (0,-50) (0,0)))
+    , ((modm .|. shiftMask, xK_f           ), setScreenWindowSpacing 8)
+    , ((modm .|. shiftMask, xK_l           ), spawn "xscreensaver-command -lock")
+    , ((modm .|. shiftMask, xK_space       ), spawn "synapse")
+    , ((modm .|. shiftMask, xK_Tab         ), windows W.focusUp)
+    , ((modm .|. shiftMask, xK_Return      ), windows W.swapMaster)
+    , ((modm .|. shiftMask, xK_Up          ), spawn "amixer set Master 7%+ unmute")
+    , ((modm .|. shiftMask, xK_Down        ), spawn "amixer set Master 7%- unmute")
     , ((noModMask, xF86XK_MonBrightnessUp  ), spawn "xbacklight -inc 10")
     , ((noModMask, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 10")
     , ((noModMask, xF86XK_AudioLowerVolume ), spawn "amixer set Master 7%- unmute")
     , ((noModMask, xF86XK_AudioRaiseVolume ), spawn "amixer set Master 7%+ unmute")
     , ((noModMask, xF86XK_AudioMicMute     ), spawn "amixer set Capture toggle")
     , ((noModMask, xF86XK_PowerOff         ), confirmPrompt myXPConfig "exit" $ io exitSuccess)
-    , ((modm,               xK_h     ), sendMessage Shrink)
-    , ((modm,               xK_l     ), sendMessage Expand)
-    , ((modm,               xK_plus  ), sendMessage ToggleStruts)
-    , ((modm,               xK_d     ), withFocused (keysResizeWindow (50,0) (0,0)))
-    , ((modm,               xK_s     ), withFocused (keysResizeWindow (0,50) (0,0)))
-    , ((modm .|. shiftMask, xK_d     ), withFocused (keysResizeWindow (-50,0)(0,0)))
-    , ((modm .|. shiftMask, xK_s     ), withFocused (keysResizeWindow (0,-50) (0,0)))
---    , ((modm .|. shiftMask, xK_t     ), withFocused $ windows . W.float)
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
-    , ((modm,                xK_f    ), setScreenWindowSpacing 0)
-    , ((modm .|. shiftMask, xK_f     ), setScreenWindowSpacing 8)
-    , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
-    , ((modm .|. shiftMask , xK_Up   ), spawn "amixer set Master 7%+ unmute")
-    , ((modm .|. shiftMask , xK_Down ), spawn "amixer set Master 7%- unmute")
-    , ((modm,               xK_g     ), goToSelected def)
     ]
     ++
     -- mod-[1..9], Switch to workspace N
     [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip ["1","2","3","4","5","6","7","8","9","ext"] [xK_1 .. xK_9]
+        | (i, k) <- zip ["1","2","3","4","5","6","7","8","9","b"] [xK_1 .. xK_9]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
     -- switch to screen
@@ -157,6 +159,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm]
     spawnTerm  = "alacritty --config-file $HOME/.config/alacritty/alacritty-scratchpad.yml --command /bin/bash"
     findTerm   = resource =? "scratchpad"
     manageTerm = customFloating $ W.RationalRect 0.2 0.2 0.6 0.7
+
 ------------------------------------------------------------------------
 -- XPConfig Theme
 myFont = "xft:Source Sans Pro:size=15:weight=Semibold"
@@ -205,21 +208,19 @@ myXPConfig =
 myManageHook = composeAll
     [ className =? "Gnome-calculator" --> doFloat
     , resource  =? "desktop_window"   --> doFloat
-    , resource  =? "blueman-applet"   --> doF (W.shift "ext")
-    , resource  =? "Blueman-applet"   --> doF (W.shift "ext")
+    , resource  =? "blueman-applet"   --> doF (W.shift "b")
+    , resource  =? "Blueman-applet"   --> doF (W.shift "b")
     , resource  =? "pluma"            --> doFloat
     , className =? "VirtualBoxVM"     --> doFloat
     , className =? "zoom"             --> doFloat
     , className =? "zoom "            --> doFloat
     , resource  =? "Grid"             --> doFloat
---    , resource  =? "evince"            --> doF (W.shift "2")
     , resource  =? "JabRef"           --> doFloat
     , resource  =? "synapse"          --> doFloat
     , resource  =? "albert"           --> doFloat
     , (stringProperty "_NET_WM_NAME")    =? "Emulator"    --> doFloat
     , (stringProperty "WM_NAME")         =? "Open Folder" --> doFloat
     , (stringProperty "WM_NAME(STRING)") =? "Grid" --> doFloat
---  , scratchpadManageHook (W.RationalRect 0.2 0.2 0.6 0.7)
     , namedScratchpadManageHook myScratchPads
     ]
 
@@ -229,28 +230,35 @@ myManageHook = composeAll
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+myLogHook = do
+  winset <- gets windowset
+  title <- maybe (return "") (fmap show . getName) . W.peek $ winset
+  count <- gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+  let layout = description . W.layout . W.workspace . W.current $ winset
+  io $ appendFile "/tmp/.xmonad-window-count" (fromMaybe "" count ++ "\n")
+  io $ appendFile "/tmp/.xmonad-title-log" (title ++ "\n")
+  -- TODO: layout output not working yet
+  io $ appendFile "/tmp/.xmonad-layout-log" (layout ++ "\n")
 
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
                 spawn "/bin/bash ~/.xmonad/xrandrscript.sh; ~/.fehbg"
                 spawn "/bin/bash ~/.fehbg"
-                spawn "bluetoothctl power on"
                 setDefaultCursor xC_arrow
                 spawn "bluetoothctl power on"
                 spawn "xscreensaver --no-splash"
-                spawn "trayer --monitor 1 --edge top --align right --margin 15 --widthtype request --padding 0 --SetDockType true --SetPartialStrut true --expand true --transparent true --alpha 0 --tint 0x212121 --height 30"
                 spawn "blueman-applet"
                 spawn "nm-applet"
-                spawn "killall volumeicon;volumeicon"
                 spawn "ayatana-webmail"
+                spawn "polybar"
 --              spawn "picom --config ~/.config/picom/picom.conf"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 main = do
-        xmproc <- spawnPipe $ "xmobar -x 0 $HOME/.config/xmobar/xmobarrc.hs"
+        forM_ [".xmonad-workspace-log", ".xmonad-title-log", ".xmonad-window-count"] $ \file -> do
+            safeSpawn "mkfifo" ["/tmp/" ++ file]
         xmonad $ docks $ ewmh $ def {
             manageHook         = myManageHook,
             terminal           = myTerminal,
@@ -265,20 +273,7 @@ main = do
             mouseBindings      = myMouseBindings,
             layoutHook         = myLayout,
             handleEventHook    = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook,
-            logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP (namedScratchpadFilterOutWorkspacePP  xmobarPP)
-                            { ppOutput = hPutStrLn xmproc
-                            , ppCurrent = xmobarColor myThemeColor "#3a3a3a" . wrap " " " " -- Current workspace in xmobar
-                            , ppVisible = xmobarColor "#ffffff" ""                -- Visible but not current workspace
-                            , ppHidden = xmobarColor "#8e8e8e" "" -- Hidden workspaces in xmobar
-                            , ppHiddenNoWindows = xmobarColor "#3a3a3a" ""        -- Hidden workspaces (no windows)
-                            , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
-                            , ppSep = xmobarColor myThemeColor "" "  |  "
-                            , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                            , ppExtras  = [windowCount]
-                            , ppLayout = drop 16                         -- remove SideDecoration String
-                            , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
---                            , ppSort    = getSortByXineramaRule
-                            },
+            logHook            = myLogHook,
             startupHook        = myStartupHook
     }
 
