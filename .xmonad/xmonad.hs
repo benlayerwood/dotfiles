@@ -18,6 +18,7 @@ import XMonad.Util.WorkspaceCompare
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Scratchpad
 import XMonad.Util.NamedWindows (getName)
+import XMonad.Util.SpawnOnce
 import Data.Monoid
 import Data.List (sortBy)
 import Data.Function (on)
@@ -101,7 +102,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_d           ), withFocused (keysResizeWindow (-50,0)(0,0)))
     , ((modm .|. shiftMask, xK_s           ), withFocused (keysResizeWindow (0,-50) (0,0)))
     , ((modm .|. shiftMask, xK_f           ), setScreenWindowSpacing 8)
-    , ((modm .|. shiftMask, xK_l           ), spawn "xscreensaver-command -lock")
+    , ((modm .|. shiftMask, xK_l           ), spawn "betterlockscreen -l dim")
     , ((modm .|. shiftMask, xK_space       ), spawn "synapse")
     , ((modm .|. shiftMask, xK_Tab         ), windows W.focusUp)
     , ((modm .|. shiftMask, xK_Return      ), windows W.swapMaster)
@@ -236,22 +237,23 @@ myLogHook = do
   count <- gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   let layout = description . W.layout . W.workspace . W.current $ winset
   io $ appendFile "/tmp/.xmonad-window-count" (fromMaybe "" count ++ "\n")
-  io $ appendFile "/tmp/.xmonad-title-log" (title ++ "\n")
+  io $ appendFile "/tmp/.xmonad-title-log" ((shorten 50 title) ++ "\n")
   -- TODO: layout output not working yet
   io $ appendFile "/tmp/.xmonad-layout-log" (layout ++ "\n")
 
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
-                spawn "/bin/bash ~/.xmonad/xrandrscript.sh; ~/.fehbg"
-                spawn "/bin/bash ~/.fehbg"
+                spawnOnce "betterlockscreen --wall --off 300 dim -u \'/home/ben/Pictures/Wallpapers/selection/\'"
+                spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh; /bin/bash ~/.fehwp"
                 setDefaultCursor xC_arrow
-                spawn "bluetoothctl power on"
-                spawn "xscreensaver --no-splash"
-                spawn "blueman-applet"
-                spawn "nm-applet"
-                spawn "ayatana-webmail"
-                spawn "polybar"
+                spawnOnce "bluetoothctl power on"
+                spawnOnce "xscreensaver --no-splash"
+                spawnOnce "blueman-applet"
+                spawnOnce "nm-applet"
+                spawnOnce "ayatana-webmail"
+                spawnOnce "polybar"
+                spawn "/bin/bash ~/.fehwp"
 --              spawn "picom --config ~/.config/picom/picom.conf"
 
 ------------------------------------------------------------------------
