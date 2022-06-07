@@ -30,6 +30,10 @@ alias paruc="paru --color=always"
 alias bat="bat -p"
 alias less="less -R"
 
+# Test Audio
+alias audiotest="mplayer /home/ben/Music/Mozart\ Requiem/01*"
+alias testaudio="mplayer /home/ben/Music/Mozart\ Requiem/01*"
+
 # start Oracle Virtualbox Machine
 vmstart(){
    VBoxManage startvm --type headless "$1"
