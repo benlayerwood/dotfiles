@@ -18,8 +18,6 @@
  '(pdf-view-midnight-colors (cons "#d4d4d4" "#1e1e1e"))
  '(rustic-ansi-faces
    ["#1e1e1e" "#D16969" "#579C4C" "#D7BA7D" "#339CDB" "#C586C0" "#85DDFF" "#d4d4d4"])
- '(smtpmail-smtp-server "mailgate.thm.de")
- '(smtpmail-smtp-service 25)
  '(vc-annotate-background "#1e1e1e")
  '(vc-annotate-color-map
    (list

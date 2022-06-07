@@ -53,3 +53,7 @@
 (package! lsp-haskell)
 (package! ox-twbs)
 (package! ob-kotlin)
+(package! lean4-mode :recipe
+  (:host github
+   :repo "leanprover/lean4-mode"))
+(package! org-drill)

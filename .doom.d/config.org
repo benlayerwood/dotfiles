@@ -41,7 +41,7 @@ Add hook to set italic font
 ** Theme
 Current theme:
 #+begin_src emacs-lisp
-  (setq doom-theme 'doom-old-hope)
+  (setq doom-theme 'doom-xcode)
 #+end_src
 
 Preferred dark themes:
@@ -51,10 +51,10 @@ Preferred dark themes:
 - doom-material-dark
 - doom-xcode
 - doom-badger
+- doom-old-hope
 Preferred light themes:
 - doom-acario-light
 - doom-one-light
-- doom-ayu-light
 - doom-ayu-light
 - tsdh-light
 - dichromacy
@@ -70,7 +70,7 @@ Set line numbers, spacing and tab width
 * Org
 Configure org directory and hide markers for text configuration
 #+begin_src emacs-lisp
-  (setq org-directory "~/Documents/Org/")
+  (setq org-directory "~/Org/")
   (setq org-hide-emphasis-markers t)
 #+end_src
 
@@ -100,7 +100,12 @@ Modes based on file name
 #+begin_src emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
   (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
-  (add-to-list 'auto-minor-mode-alist '("android-stack.png" . hide-mode-line-mode))
+  (add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
+#+end_src
+
+Lean exec path
+#+begin_src emacs-lisp
+;;(setq lean-rootdir "$HOME/.local/bin")
 #+end_src
 
 * Keybindings
@@ -179,6 +184,7 @@ Bash as default shell
 ** Setup
 #+begin_src emacs-lisp
   (require 'mu4e)
+  (setq +mu4e-workspace-name "mail")
 #+end_src
 ** Accounts
 [[https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html][Multiple Accounts]]
@@ -286,4 +292,5 @@ Mail Composition Org Options
 Message Signature
 #+begin_src emacs-lisp
   (setq mu4e-compose-signature "Mit freundlichen Grüßen,\nBenjamin Schichtholz")
+  (setq mu4e-compose-signature-auto-include nil)
 #+end_src

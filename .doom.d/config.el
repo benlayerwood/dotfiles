@@ -14,13 +14,13 @@
             (lambda() (set-face-attribute 'italic nil :family "Liberation Mono" :height 0.9 :width 'condensed :slant 'italic)
   ))
 
-  (setq doom-theme 'doom-old-hope)
+  (setq doom-theme 'doom-xcode)
 
   (setq display-line-numbers-type 'relative)
   (setq-default tab-width 2)
   (setq line-spacing 0.2)
 
-  (setq org-directory "~/Documents/Org/")
+  (setq org-directory "~/Org/")
   (setq org-hide-emphasis-markers t)
 
   (add-hook 'org-mode-hook
@@ -37,7 +37,9 @@
 
   (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
   (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
-  (add-to-list 'auto-minor-mode-alist '("android-stack.png" . hide-mode-line-mode))
+  (add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
+
+;;(setq lean-rootdir "$HOME/.local/bin")
 
   (global-set-key (kbd "C-x x") 'kill-this-buffer)
   (map! :leader
@@ -88,6 +90,7 @@
   (setq shell-file-name "/bin/bash")
 
   (require 'mu4e)
+  (setq +mu4e-workspace-name "mail")
 
   (setq mu4e-contexts
         `(,(make-mu4e-context
@@ -170,3 +173,4 @@
 (org-msg-mode)
 
   (setq mu4e-compose-signature "Mit freundlichen Grüßen,\nBenjamin Schichtholz")
+  (setq mu4e-compose-signature-auto-include nil)
