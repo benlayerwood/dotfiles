@@ -28,8 +28,6 @@ URxvt.perl-ext-common:vtewheel
 URxvt.iso14755: false
 URxvt.iso14755-52: false
 
-Xcursor.theme: macOSBigSur
-Xcursor.size: 30
 
 ! special colors
 *.foreground:  #d0d0d0
