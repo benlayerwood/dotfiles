@@ -1,11 +1,16 @@
 . ~/.private_aliases
 
-#  ls
+# ls
 alias ls='ls --color=always'
 alias ll='ls -l'
 alias la='ls -A'
 alias lg='ls -l --group-directories-first'
 alias lls='ls|less'
+
+# exa
+alias le='exa --icons'
+alias l='le --long --links'
+alias lea='l --all'
 
 # clipboard tool (xclip)
 alias setc="xclip -selection c"
