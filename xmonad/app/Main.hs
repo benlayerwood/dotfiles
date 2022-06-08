@@ -1,4 +1,6 @@
 {-# LANGUAGE MultiParamTypeClasses, FlexibleInstances #-}
+module Main where
+
 import XMonad
 import XMonad.Util.Run
 import XMonad.Config.Desktop
@@ -95,7 +97,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_b           ), sequence_ [withFocused toggleBorder, withFocused $ windows . W.sink])
     , ((modm .|. shiftMask, xK_q           ), kill)
     , ((modm .|. shiftMask, xK_t           ), namedScratchpadAction myScratchPads "terminal")
-    , ((modm .|. shiftMask, xK_z           ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm .|. shiftMask, xK_z           ), spawn "~/Code/xmonadben/compile.sh; xmonad --restart")
     , ((modm .|. shiftMask, xK_j           ), windows W.swapDown)
     , ((modm .|. shiftMask, xK_k           ), windows W.swapUp    )
     , ((modm .|. shiftMask, xK_x           ), confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
@@ -275,4 +277,3 @@ main = do
             logHook            = myLogHook,
             startupHook        = myStartupHook
     }
-
