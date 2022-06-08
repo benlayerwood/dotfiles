@@ -89,7 +89,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm,               xK_plus        ), sendMessage ToggleStruts)
     , ((modm,               xK_comma       ), sendMessage (IncMasterN 1))
     , ((modm,               xK_period      ), sendMessage (IncMasterN (-1)))
-    , ((modm,               xK_space       ), spawn "rofi -columns 2 -show-icons -modi drun -show drun")
+    , ((modm,               xK_space       ), spawn "rofi -columns 2 -show-icons -modi \"drun,window,ssh\" -show drun -terminal alacritty")
     , ((modm,               xK_ssharp      ), windows $ W.greedyView "b")
     , ((modm,               xK_f           ), setScreenWindowSpacing 0)
     , ((modm .|. shiftMask, xK_b           ), sequence_ [withFocused toggleBorder, withFocused $ windows . W.sink])
