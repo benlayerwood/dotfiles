@@ -102,7 +102,6 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_d           ), withFocused (keysResizeWindow (-50,0)(0,0)))
     , ((modm .|. shiftMask, xK_s           ), withFocused (keysResizeWindow (0,-50) (0,0)))
     , ((modm .|. shiftMask, xK_f           ), setScreenWindowSpacing 8)
-    , ((modm .|. shiftMask, xK_l           ), spawn "betterlockscreen -l dim")
     , ((modm .|. shiftMask, xK_space       ), spawn "synapse")
     , ((modm .|. shiftMask, xK_Tab         ), windows W.focusUp)
     , ((modm .|. shiftMask, xK_Return      ), windows W.swapMaster)
@@ -244,8 +243,8 @@ myLogHook = do
 ------------------------------------------------------------------------
 -- Startup hook
 myStartupHook = do
-                spawnOnce "betterlockscreen --wall --off 300 dim -u \'/home/ben/Pictures/Wallpapers/selection/\'"
-                spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh; /bin/bash ~/.fehwp"
+                spawnOnce "/bin/bash ~/.fehbg"
+                spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh"
                 setDefaultCursor xC_arrow
                 spawnOnce "bluetoothctl power on"
                 spawnOnce "xscreensaver --no-splash"
@@ -253,7 +252,6 @@ myStartupHook = do
                 spawnOnce "nm-applet"
                 spawnOnce "ayatana-webmail"
                 spawnOnce "polybar"
-                spawn "/bin/bash ~/.fehwp"
 --              spawn "picom --config ~/.config/picom/picom.conf"
 
 ------------------------------------------------------------------------
