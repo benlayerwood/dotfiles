@@ -1,7 +1,7 @@
 module Theme where
 import XMonad.Layout.Decoration
 
-myThemeColor = "#dd9b6e"
+myThemeColor = "#6ec4dd"
 
 myTheme :: Theme
 myTheme = def
