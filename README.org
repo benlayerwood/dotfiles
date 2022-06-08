@@ -18,6 +18,16 @@ These are my personal configuration files for various applications.
   * [[.doom.d]] ([[https://github.com/hlissner/doom-emacs][Doom Emacs]]) /the dark side plus cookies/
 ** Window Managers
   * [[.xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
+    → /Note/:
+    - xmonad is built via [[https://docs.haskellstack.org/en/stable/README/][stack]]
+    - To run xmonad, copy the executable
+       =.stack-work/dist/x86_64-linux-tinfo6/Cabal-3.4.1.0/build/xmonadben-exe/xmonadben-exe=
+       to
+       =~/.xmonad/xmonad-x86_64-linux=
+       and run
+       #+begin_src shell
+       xmonad --restart
+       #+end_src
   * [[config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
 ** Further Applications
   * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automize display configuration/
