@@ -236,8 +236,7 @@ myLogHook = do
   count <- gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   let layout = description . W.layout . W.workspace . W.current $ winset
   io $ appendFile "/tmp/.xmonad-window-count" (fromMaybe "" count ++ "\n")
-  io $ appendFile "/tmp/.xmonad-title-log" ((shorten 50 title) ++ "\n")
-  -- TODO: layout output not working yet
+  io $ appendFile "/tmp/.xmonad-title-log" ((shorten 50 title) ++ "\n") -- TODO: layout output not working yet
   io $ appendFile "/tmp/.xmonad-layout-log" (layout ++ "\n")
 
 ------------------------------------------------------------------------
