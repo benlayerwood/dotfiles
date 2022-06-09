@@ -25,7 +25,6 @@ import Data.Monoid
 import Data.List (sortBy)
 import Data.Function (on)
 import Data.Maybe (fromMaybe)
-import System.Exit
 import Control.Monad
 
 import XMonad.Actions.PhysicalScreens
@@ -100,7 +99,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_z           ), spawn "~/Code/xmonadben/compile.sh; xmonad --restart")
     , ((modm .|. shiftMask, xK_j           ), windows W.swapDown)
     , ((modm .|. shiftMask, xK_k           ), windows W.swapUp    )
-    , ((modm .|. shiftMask, xK_x           ), confirmPrompt myXPConfig "exit" $ io (exitWith ExitSuccess))
+    , ((modm .|. shiftMask, xK_x           ), confirmPrompt myXPConfig "exit" $ io exitSuccess)
     , ((modm .|. shiftMask, xK_d           ), withFocused (keysResizeWindow (-50,0)(0,0)))
     , ((modm .|. shiftMask, xK_s           ), withFocused (keysResizeWindow (0,-50) (0,0)))
     , ((modm .|. shiftMask, xK_f           ), setScreenWindowSpacing 8)
@@ -140,7 +139,7 @@ numPadKeys = [ xK_KP_End,  xK_KP_Down,  xK_KP_Page_Down -- 1, 2, 3
 changeWorkspace :: Int -> X ()
 changeWorkspace d = workspaceBy d >>= windows . W.view
 
-workspaceBy :: Int -> X (WorkspaceId)
+workspaceBy :: Int -> X WorkspaceId
 workspaceBy = findWorkspace getSortByIndex Next AnyWS
 
 ------------------------------------------------------------------------
@@ -220,9 +219,9 @@ myManageHook = composeAll
     , resource  =? "JabRef"           --> doFloat
     , resource  =? "synapse"          --> doFloat
     , resource  =? "albert"           --> doFloat
-    , (stringProperty "_NET_WM_NAME")    =? "Emulator"    --> doFloat
-    , (stringProperty "WM_NAME")         =? "Open Folder" --> doFloat
-    , (stringProperty "WM_NAME(STRING)") =? "Grid" --> doFloat
+    , stringProperty "_NET_WM_NAME"    =? "Emulator"    --> doFloat
+    , stringProperty "WM_NAME"         =? "Open Folder" --> doFloat
+    , stringProperty "WM_NAME(STRING)" =? "Grid"        --> doFloat
     , namedScratchpadManageHook myScratchPads
     ]
 
@@ -238,8 +237,8 @@ myLogHook = do
   count <- gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
   let layout = description . W.layout . W.workspace . W.current $ winset
   io $ appendFile "/tmp/.xmonad-window-count" (fromMaybe "" count ++ "\n")
-  io $ appendFile "/tmp/.xmonad-title-log" ((shorten 50 title) ++ "\n") -- TODO: layout output not working yet
-  io $ appendFile "/tmp/.xmonad-layout-log" (layout ++ "\n")
+  io $ appendFile "/tmp/.xmonad-title-log" (shorten 50 title ++ "\n")
+  io $ appendFile "/tmp/.xmonad-layout-log" (drop (length "Spacing ReflectX ") layout ++ "\n")
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -258,7 +257,7 @@ myStartupHook = do
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 main = do
-        forM_ [".xmonad-workspace-log", ".xmonad-title-log", ".xmonad-window-count"] $ \file -> do
+        forM_ [".xmonad-layout-log", ".xmonad-title-log", ".xmonad-window-count"] $ \file -> do
             safeSpawn "mkfifo" ["/tmp/" ++ file]
         xmonad $ docks $ ewmh $ def {
             manageHook         = myManageHook,
