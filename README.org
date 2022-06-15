@@ -20,14 +20,14 @@ These are my personal configuration files for various applications.
   * [[.xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
     → /Note/:
     - xmonad is built via [[https://docs.haskellstack.org/en/stable/README/][stack]]
+      Compilation command:
+      =stack build=
     - To run xmonad, copy the executable
        =.stack-work/dist/x86_64-linux-tinfo6/Cabal-3.4.1.0/build/xmonadben-exe/xmonadben-exe=
        to
        =~/.xmonad/xmonad-x86_64-linux=
        and run
-       #+begin_src shell
-       xmonad --restart
-       #+end_src
+       =xmonad --restart=
   * [[config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
 ** Further Applications
   * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automize display configuration/
