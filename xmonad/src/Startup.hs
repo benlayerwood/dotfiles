@@ -12,4 +12,5 @@ myStartupHook = do
                 spawnOnce "nm-applet"
                 spawnOnce "ayatana-webmail"
                 spawnOnce "polybar"
+                spawnOnce "xscreensaver --no-splash"
 --              spawn "picom --config ~/.config/picom/picom.conf"

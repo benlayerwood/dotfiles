@@ -56,6 +56,7 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_d           ), withFocused (keysResizeWindow (-50,0)(0,0)))
     , ((modm .|. shiftMask, xK_s           ), withFocused (keysResizeWindow (0,-50) (0,0)))
     , ((modm .|. shiftMask, xK_f           ), setScreenWindowSpacing 8)
+    , ((modm .|. shiftMask, xK_l           ), spawn "xscreensaver-command -lock")
     , ((modm .|. shiftMask, xK_space       ), spawn "synapse")
     , ((modm .|. shiftMask, xK_Tab         ), windows W.focusUp)
     , ((modm .|. shiftMask, xK_Return      ), windows W.swapMaster)
