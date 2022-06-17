@@ -57,3 +57,8 @@
   (:host github
    :repo "leanprover/lean4-mode"))
 (package! org-drill)
+(package! guess-language)
+(package! request)
+(package! txl :recipe
+  (:host github
+   :repo "tmalsburg/txl.el"))

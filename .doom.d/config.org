@@ -294,3 +294,30 @@ Message Signature
   (setq mu4e-compose-signature "Mit freundlichen Grüßen,\nBenjamin Schichtholz")
   (setq mu4e-compose-signature-auto-include nil)
 #+end_src
+
+* Translation
+
+#+begin_src emacs-lisp
+(require 'txl)
+(setq txl-languages '(EN-US . FR))
+(setq txl-deepl-api-key "424c308a-a3cb-343c-840d-9c905fbd640d:fx")
+(setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
+#+end_src
+
+#+begin_src emacs-lisp
+;;(require 'google-translate)
+;;(require 'google-translate-default-ui)
+;;(setq google-translate-backend-method 'emacs)
+;;(setq google-translate-translation-directions-alist
+;;      '(("fr" . "en")("fr" . "de")("en" . "fr")("de" . "fr")("de" . "en") ("en" . "de")  ))
+;;(setq google-translate-default-source-language "fr")
+;;(setq google-translate-default-target-language "en")
+#+end_src
+
+* Programming
+  Use Kotlin LSP
+  #+begin_src emacs-lisp
+  ;;(add-hook 'kotlin-mode-hook #'lsp-mode)
+  ;;(add-to-list 'execpath "~/Code/kotlin-language-server/server/build/distributions/server.zip")
+  (setq  lsp-clients-kotlin-server-executable "~/Code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
+  #+end_src
