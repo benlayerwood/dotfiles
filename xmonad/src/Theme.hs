@@ -7,16 +7,16 @@ import XMonad.Prompt
 import Data.List (isPrefixOf)
 
 myThemeColor = "#6ec4dd"
-myNormalBorderColor  = "#242424"
+myNormalBorderColor  = "#acacac"
 
 myTheme :: Theme
 myTheme = def
   { activeColor = myThemeColor
   , activeBorderColor = myThemeColor
   , activeTextColor = myThemeColor
-  , inactiveBorderColor = "#242424"
-  , inactiveTextColor = "#242424"
-  , inactiveColor = "#242424"
+  , inactiveBorderColor = "#acacac"
+  , inactiveTextColor = "#acacac"
+  , inactiveColor = "#acacac"
   , decoWidth = 3
   , decoHeight = 3
   }

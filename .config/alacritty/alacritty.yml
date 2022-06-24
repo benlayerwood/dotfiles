@@ -18,7 +18,7 @@ font:
  normal:
     family: Fira Code
     style: Regular
- size: 10.0
+ size: 9.0
  offset:
     x: 0
     y: 0
@@ -42,40 +42,70 @@ key_bindings:
   - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
   - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
   - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
-    #
-# VSCode's integrated terminal default colors
-# Primary and dimmed colors needed
 
+# Light Theme
 colors:
-  # Default colors
-  primary:
-    background: '#1c1c1c' #Background from Dark Theme
-    foreground: '#dddddd'
-
-  # Selection colors
-  selection:
-    text: CellForeground
-    background: '#565656'
-
-  # Normal colors
-  normal:
-    black:   '#000000'
-    red:     '#cd3131'
-    green:   '#0dbc79'
-    yellow:  '#e5e510'
-    blue:    '#2472c8'
-    magenta: '#bc3fbc'
-    cyan:    '#11a8cd'
-    white:   '#e5e5e5'
-
-  # Bright colors
   bright:
-    black:   '#666666'
-    red:     '#f14c4c'
-    green:   '#23d18b'
-    yellow:  '#f5f543'
-    blue:    '#3b8eea'
-    magenta: '#d670d6'
-    cyan:    '#29b8db'
-    white:   '#e5e5e5'
-
+    black: '#434343'
+    blue: '#306d9f'
+    cyan: '#1aa07a'
+    green: '#3a948c'
+    magenta: '#c22e2e'
+    red: '#b00a0a'
+    white: '#616c87'
+    yellow: '#c8a51f'
+  cursor:
+    cursor: '#403f53'
+    text: '#fbfbfb'
+  normal:
+    black: '#011627'
+    blue: '#4876d6'
+    cyan: '#08916a'
+    green: '#2aa298'
+    magenta: '#403f53'
+    red: '#d3423e'
+    white: '#434343'
+    yellow: '#daaa01'
+  primary:
+    background: '#ffffff'
+    foreground: '#403f53'
+  selection:
+    background: '#f2f2f2'
+    text: '#403f53'
+    
+## VSCode's integrated terminal default colors
+## Primary and dimmed colors needed
+#
+#colors:
+#  # Default colors
+#  primary:
+#    background: '#1c1c1c' #Background from Dark Theme
+#    foreground: '#dddddd'
+#
+#  # Selection colors
+#  selection:
+#    text: CellForeground
+#    background: '#565656'
+#
+#  # Normal colors
+#  normal:
+#    black:   '#000000'
+#    red:     '#cd3131'
+#    green:   '#0dbc79'
+#    yellow:  '#e5e510'
+#    blue:    '#2472c8'
+#    magenta: '#bc3fbc'
+#    cyan:    '#11a8cd'
+#    white:   '#e5e5e5'
+#
+#  # Bright colors
+#  bright:
+#    black:   '#666666'
+#    red:     '#f14c4c'
+#    green:   '#23d18b'
+#    yellow:  '#f5f543'
+#    blue:    '#3b8eea'
+#    magenta: '#d670d6'
+#    cyan:    '#29b8db'
+#    white:   '#e5e5e5'
+#

@@ -1,5 +1,6 @@
 export EDITOR=/usr/bin/vim
 export _JAVA_AWT_WM_NONREPARENTING=1
+export BAT_THEME="Monokai Extended Light"
 export PATH="$PATH:$HOME/Android/Sdk/emulator/"
 export PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin/"
 export PATH="$PATH:$HOME/.emacs.d/bin/"
@@ -30,7 +31,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # Set prompt
 setopt PROMPT_SUBST
 # PROMPT='%K{#474747} %B%F{green}%n%f%F{#e9cc42}@%F{#e9454d}%m%f %B%~%b%f %F{cyan}$%F{white}%b %K{#1c1c1c}%F{#474747}%F{white}%K{#1c1c1c}%b%f%k '
-PROMPT='%K{#474747} %B%F{green}%F{white} %B%1d%b%f %F{cyan}$%F{white}%b %K{#1c1c1c}%F{#474747}%F{white}%K{#1c1c1c}%b%f%k '
+PROMPT='%K{#555555} %B%F{#ffffff} %B%1d%b%f %F{blue}$%b %K{#ffffff}%F{#555555}%F{white}%K{#ffffff}%b%f%k '
 RPROMPT='$vcs_info_msg_0_'
 
 # Set vi mode

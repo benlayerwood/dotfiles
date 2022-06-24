@@ -2,6 +2,7 @@
 export EDITOR=/usr/bin/vim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export XENVIRONMENT="$HOME/.Xresources"
+export BAT_THEME="Monokai Extended Light"
 
 # If not running interactively, don't do anything
 case $- in
@@ -18,8 +19,6 @@ then
 #    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
-
-export BAT_THEME="Visual Studio Dark+"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options

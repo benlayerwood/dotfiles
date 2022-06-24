@@ -41,7 +41,7 @@ Add hook to set italic font
 ** Theme
 Current theme:
 #+begin_src emacs-lisp
-  (setq doom-theme 'doom-xcode)
+  (setq doom-theme 'doom-acario-light)
 #+end_src
 
 Preferred dark themes:
