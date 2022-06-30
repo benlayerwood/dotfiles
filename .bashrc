@@ -2,7 +2,7 @@
 export EDITOR=/usr/bin/vim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export XENVIRONMENT="$HOME/.Xresources"
-export BAT_THEME="Monokai Extended Light"
+export BAT_THEME="Visual Studio Dark+"
 
 # If not running interactively, don't do anything
 case $- in
