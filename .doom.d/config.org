@@ -67,6 +67,12 @@ Set line numbers, spacing and tab width
   (setq line-spacing 0.2)
 #+end_src
 
+** Frames
+Set Title bar template for frames
+#+begin_src emacs-lisp
+(setq frame-title-format "%b [Emacs]")
+#+end_src
+
 * Org
 Configure org directory and hide markers for text configuration
 #+begin_src emacs-lisp
@@ -296,7 +302,7 @@ Message Signature
 #+end_src
 
 * Translation
-
+Connect to deepl api
 #+begin_src emacs-lisp
 (require 'txl)
 (setq txl-languages '(EN-US . FR))
@@ -321,3 +327,13 @@ Message Signature
   ;;(add-to-list 'execpath "~/Code/kotlin-language-server/server/build/distributions/server.zip")
   (setq  lsp-clients-kotlin-server-executable "~/Code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
   #+end_src
+
+* Dashboard
+[[https://github.com/emacs-dashboard/emacs-dashboard][Extensible Emacs Start Screen]]
+#+begin_src emacs-lisp
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-banner-logo-title "Ben's Emacs")
+(setq dashboard-startup-banner 1)
+(setq dashboard-center-content t)
+#+end_src

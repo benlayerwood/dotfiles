@@ -62,3 +62,4 @@
 (package! txl :recipe
   (:host github
    :repo "tmalsburg/txl.el"))
+(package! dashboard)
