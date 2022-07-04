@@ -24,7 +24,7 @@ import Scratchpad
 -- and https://hackage.haskell.org/package/X11-1.10.2/docs/Graphics-X11-ExtraTypes-XF86.html
 myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     [ ((modm,               xK_Return      ), spawn $ XMonad.terminal conf)
-    , ((modm,               xK_c           ), spawn "gnome-calendar")
+    , ((modm,               xK_c           ), spawn "/opt/Morgen/morgen")
     , ((modm,               xK_b           ), spawn "firefox")
     , ((modm,               xK_n           ), spawn "nemo")
     , ((modm,               xK_m           ), spawn "emacs")
