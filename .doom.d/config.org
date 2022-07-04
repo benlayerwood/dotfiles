@@ -2,6 +2,7 @@
 #+author: Benjamin Schichtholz
 #+email: schichtholz@mailbox.org
 #+PROPERTY: header-args :tangle config.el
+#+STARTUP: overview
 
 * Basic Configuration
 ** Locale
@@ -71,6 +72,7 @@ Set line numbers, spacing and tab width
 Set Title bar template for frames
 #+begin_src emacs-lisp
 (setq frame-title-format "%b [Emacs]")
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 #+end_src
 
 * Org
@@ -121,6 +123,10 @@ Custom keybindings
   (map! :leader
         :desc "Launch Eshell"
         "o E" #'eshell)
+
+  (map! :leader
+        :desc "Launch Mu4e"
+        "o m" #'mu4e)
   (map! :leader
         :desc "Launch Shell"
         "s h" #'shell)
@@ -160,6 +166,10 @@ Modeline structure
   (setq
     all-the-icons-scale-factor 1.1)
 #+end_src
+** Fallback Buffer
+#+begin_src emacs-lisp
+(setq doom-fallback-buffer-name "*dashboard*")
+#+end_src
 
 * Shells
 ** Eshell
@@ -190,7 +200,26 @@ Bash as default shell
 ** Setup
 #+begin_src emacs-lisp
   (require 'mu4e)
-  (setq +mu4e-workspace-name "mail")
+  (setq mail-user-agent 'mu4e-user-agent)
+  (setq mu4e-use-fancy-chars t)
+  (setq mu4e-view-show-images t)
+  (setq mu4e-context-policy 'pick-first)
+#+end_src
+
+Fix evil collection error
+#+begin_src emacs-lisp
+;; (remove-hook 'mu4e-main-mode-hook 'evil-collection-mu4e-update-main-view)
+#+end_src
+
+Frequently used maildirs
+#+begin_src emacs-lisp
+(setq   mu4e-maildir-shortcuts
+    '((:maildir "/KIT/INBOX" :key ?k)
+      (:maildir "/Mailbox/INBOX"   :key ?m)
+      (:maildir "/Mailbox/INBOX/Fachschaft"   :key ?e)
+      (:maildir "/Mailbox/INBOX/Bahn"   :key ?b)
+      (:maildir "/KIT/UTO"    :key ?u)
+      (:maildir "/KIT/Franz"    :key ?f)))
 #+end_src
 ** Accounts
 [[https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html][Multiple Accounts]]
@@ -310,21 +339,9 @@ Connect to deepl api
 (setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
 #+end_src
 
-#+begin_src emacs-lisp
-;;(require 'google-translate)
-;;(require 'google-translate-default-ui)
-;;(setq google-translate-backend-method 'emacs)
-;;(setq google-translate-translation-directions-alist
-;;      '(("fr" . "en")("fr" . "de")("en" . "fr")("de" . "fr")("de" . "en") ("en" . "de")  ))
-;;(setq google-translate-default-source-language "fr")
-;;(setq google-translate-default-target-language "en")
-#+end_src
-
 * Programming
   Use Kotlin LSP
   #+begin_src emacs-lisp
-  ;;(add-hook 'kotlin-mode-hook #'lsp-mode)
-  ;;(add-to-list 'execpath "~/Code/kotlin-language-server/server/build/distributions/server.zip")
   (setq  lsp-clients-kotlin-server-executable "~/Code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
   #+end_src
 
@@ -334,6 +351,15 @@ Connect to deepl api
 (require 'dashboard)
 (dashboard-setup-startup-hook)
 (setq dashboard-banner-logo-title "Ben's Emacs")
-(setq dashboard-startup-banner 1)
+(setq dashboard-startup-banner "~/Pictures/logos/Tux_78.png")
 (setq dashboard-center-content t)
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+(setq dashboard-set-navigator t)
+#+end_src
+
+#+begin_src emacs-lisp
+(setq dashboard-items '((recents  . 5)
+                        (bookmarks . 5)
+                        (projects . 5)))
 #+end_src

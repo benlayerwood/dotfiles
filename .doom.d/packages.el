@@ -63,3 +63,5 @@
   (:host github
    :repo "tmalsburg/txl.el"))
 (package! dashboard)
+(package! mu4e)
+(package! org-msg)
