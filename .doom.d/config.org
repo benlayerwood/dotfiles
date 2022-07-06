@@ -200,10 +200,12 @@ Bash as default shell
 ** Setup
 #+begin_src emacs-lisp
   (require 'mu4e)
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq mu4e-use-fancy-chars t)
-  (setq mu4e-view-show-images t)
-  (setq mu4e-context-policy 'pick-first)
+  (setq mail-user-agent 'mu4e-user-agent
+        mu4e-use-fancy-chars t
+        mu4e-view-show-images t
+        mu4e-context-policy 'pick-first
+        mu4e-confirm-quit nil
+        mu4e-change-filenames-when-moving t)
 #+end_src
 
 Fix evil collection error
@@ -294,7 +296,6 @@ Dynamic function to select account
                   (set (car var) (cadr var)))
               account-vars)
       (error "No email account found"))))
-(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 #+end_src
 
 Add function to hook
