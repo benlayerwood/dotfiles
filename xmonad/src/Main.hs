@@ -31,6 +31,7 @@ import Keys (myKeys, numPadKeys, changeWorkspace, myMouseBindings, workspaceBy)
 import Startup (myStartupHook)
 import Log (myLogHook)
 import WindowHooks
+import XMonad.Hooks.EwmhDesktops (ewmh)
 
 myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed ||| Mirror tiled ||| three
   where
@@ -49,7 +50,7 @@ myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed |||
 main = do
         forM_ [".xmonad-layout-log", ".xmonad-title-log", ".xmonad-window-count"] $ \file -> do
             safeSpawn "mkfifo" ["/tmp/" ++ file]
-        xmonad $ docks $ ewmh $ def {
+        xmonad $ docks . ewmhFullscreen . ewmh $ def {
             manageHook         = myManageHook,
             terminal           = myTerminal,
             focusFollowsMouse  = myFocusFollowsMouse,
@@ -62,7 +63,7 @@ main = do
             keys               = myKeys,
             mouseBindings      = myMouseBindings,
             layoutHook         = myLayout,
-            handleEventHook    = handleEventHook def <+> XMonad.Hooks.EwmhDesktops.fullscreenEventHook,
+            handleEventHook    = handleEventHook def,
             logHook            = myLogHook,
             startupHook        = myStartupHook
     }
