@@ -100,6 +100,11 @@ Larger font for headings
   )
 #+end_src
 
+Custom headline bullets
+#+begin_src emacs-lisp
+   (setq org-superstar-headline-bullets-list '(?❂ ?✽ ?⯍ ?✶))
+#+end_src
+)
 * File-specific Modes
 :PROPERTIES:
 :ID:       273cf0cc-3c65-484a-a3e6-f6fc6342a384
@@ -136,6 +141,11 @@ Custom keybindings
   (map! :leader
         :desc "Hide Modeline"
         "m h" #'hide-mode-line-mode)
+
+
+  (map! :leader
+        :desc "Deepl Translate"
+        "d" #'txl-translate-region-or-paragraph)
 #+end_src
 * Doom
 ** Splash Screen
@@ -205,7 +215,9 @@ Bash as default shell
         mu4e-view-show-images t
         mu4e-context-policy 'pick-first
         mu4e-confirm-quit nil
-        mu4e-change-filenames-when-moving t)
+        mu4e-change-filenames-when-moving t
+        mu4e-attachment-dir "/home/ben/Downloads"
+        mu4e-main-buffer-name "mails")
 #+end_src
 
 Fix evil collection error
@@ -335,7 +347,7 @@ Message Signature
 Connect to deepl api
 #+begin_src emacs-lisp
 (require 'txl)
-(setq txl-languages '(EN-US . FR))
+(setq txl-languages '(EN-GB . FR))
 (setq txl-deepl-api-key "424c308a-a3cb-343c-840d-9c905fbd640d:fx")
 (setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
 #+end_src
