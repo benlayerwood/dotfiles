@@ -1,0 +1,6 @@
+#!/bin/bash
+cd ~/.config/xmonad
+stack build
+stack install && \
+cp --update ~/.local/bin/xmonad-x86_64-linux ~/.xmonad/ && \
+cp --force --update ~/.local/bin/xmonad-x86_64-linux ~/.cache/xmonad

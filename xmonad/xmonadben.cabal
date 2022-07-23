@@ -13,11 +13,7 @@ author:         Benjamin Schichtholz
 maintainer:     example@example.com
 copyright:      2022 Benjamin Schichtholz
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
-extra-source-files:
-    README.md
-    ChangeLog.md
 
 source-repository head
   type: git
@@ -42,11 +38,12 @@ library
       X11
     , base >=4.7 && <5
     , containers
+    , unix >=2.7.2.2
     , xmonad
     , xmonad-contrib
   default-language: Haskell2010
 
-executable xmonadben-exe
+executable xmonad-x86_64-linux
   main-is: Main.hs
   other-modules:
       Constants
@@ -65,6 +62,7 @@ executable xmonadben-exe
       X11
     , base >=4.7 && <5
     , containers
+    , unix >=2.7.2.2
     , xmonad
     , xmonad-contrib
     , xmonadben
@@ -82,6 +80,7 @@ test-suite xmonadben-test
       X11
     , base >=4.7 && <5
     , containers
+    , unix >=2.7.2.2
     , xmonad
     , xmonad-contrib
     , xmonadben

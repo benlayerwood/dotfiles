@@ -6,9 +6,9 @@ author:              "Benjamin Schichtholz"
 maintainer:          "example@example.com"
 copyright:           "2022 Benjamin Schichtholz"
 
-extra-source-files:
-- README.md
-- ChangeLog.md
+# extra-source-files:
+# - README.md
+# - ChangeLog.md
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -25,12 +25,13 @@ dependencies:
 - xmonad-contrib
 - X11
 - containers
+- unix >= 2.7.2.2
 
 library:
   source-dirs: src
 
 executables:
-  xmonadben-exe:
+  xmonad-x86_64-linux:
     main:                Main.hs
     source-dirs:         src
     ghc-options:

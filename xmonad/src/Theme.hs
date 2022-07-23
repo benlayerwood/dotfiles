@@ -6,7 +6,8 @@ import Graphics.X11.Types
 import XMonad.Prompt
 import Data.List (isPrefixOf)
 
-myThemeColor = "#6ec4dd"
+myThemeColor = "#0181d1"
+--myThemeColor = "#ff0000"
 myNormalBorderColor  = "#acacac"
 
 myTheme :: Theme

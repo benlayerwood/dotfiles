@@ -48,8 +48,6 @@ myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed |||
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 main = do
-        forM_ [".xmonad-layout-log", ".xmonad-title-log", ".xmonad-window-count"] $ \file -> do
-            safeSpawn "mkfifo" ["/tmp/" ++ file]
         xmonad $ docks . ewmhFullscreen . ewmh $ def {
             manageHook         = myManageHook,
             terminal           = myTerminal,
