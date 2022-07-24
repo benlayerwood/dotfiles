@@ -102,7 +102,7 @@ Larger font for headings
 
 Custom headline bullets
 #+begin_src emacs-lisp
-   (setq org-superstar-headline-bullets-list '(?❂ ?✽ ?⯍ ?✶))
+   (setq org-superstar-headline-bullets-list '(?❂ ?✽ ?☉ ?✶))
 #+end_src
 )
 * File-specific Modes
