@@ -8,7 +8,8 @@ import Data.List (isPrefixOf)
 
 myThemeColor = "#0181d1"
 --myThemeColor = "#ff0000"
-myNormalBorderColor  = "#acacac"
+mySecondaryColor  = "#acacac"
+myBackgroundColor = "#212121"
 
 myTheme :: Theme
 myTheme = def
@@ -24,14 +25,29 @@ myTheme = def
 
 -- XPConfig Theme
 myFont = "xft:Source Sans Pro:size=15:weight=Semibold"
+myMonoFont = "xft:Fira Code:size=8"
+
+tabTheme = def
+  { activeColor = "#425e68"
+  , activeBorderColor = myThemeColor
+  , inactiveBorderColor = myThemeColor
+  , activeTextColor = "#ffffff"
+  , inactiveTextColor = myThemeColor
+  , inactiveColor = myBackgroundColor
+  , activeBorderWidth = 0
+  , inactiveBorderWidth = 0
+  , decoWidth = 0
+  , decoHeight = 23
+  , fontName = myMonoFont
+  }
 
 myXPConfig :: XPConfig
 myXPConfig =
    XPC {
           font                  = myFont
-        , bgColor               = myNormalBorderColor
+        , bgColor               = mySecondaryColor
         , fgColor               = myThemeColor
-        , bgHLight              = myNormalBorderColor
+        , bgHLight              = mySecondaryColor
         , fgHLight              = myThemeColor
         , borderColor           = border def
         , promptBorderWidth     = 2

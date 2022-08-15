@@ -13,7 +13,6 @@ import Control.Monad
 import XMonad.Layout.IndependentScreens
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Decoration
-import XMonad.Layout.Tabbed
 import XMonad.Layout.Renamed
 import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
@@ -26,17 +25,19 @@ import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
 
 import Constants
-import Theme
 import Keys (myKeys, numPadKeys, changeWorkspace, myMouseBindings, workspaceBy)
 import Startup (myStartupHook)
 import Log (myLogHook)
 import WindowHooks
-import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Layout.Tabbed (tabbed)
+import XMonad.Layout.Groups.Wmii (shrinkText)
+import Theme
 
-myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed ||| Mirror tiled ||| three
+mySpacing = 0
+myLayout = spacingWithEdge mySpacing $ reflectHoriz $ avoidStruts $ tiled ||| tabs ||| Mirror tiled ||| three
   where
      tiled = Tall nmaster delta ratio
-     tabbed = renamed [Replace "Tabs"] $ tabbedBottom shrinkText myTheme
+     tabs = renamed [Replace "Tabs"] $ tabbed shrinkText tabTheme
      three = renamed [Replace "Three"] $ Mirror $ ThreeCol nmaster delta (1/3)
      -- The default number of windows in the master pane
      nmaster = 1
@@ -44,6 +45,7 @@ myLayout = spacingWithEdge 8 $ reflectHoriz $ avoidStruts $ tiled ||| tabbed |||
      ratio   = 1/2
      -- Percent of screen to increment by when resizing panes
      delta   = 10/100
+
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -56,7 +58,7 @@ main = do
             borderWidth        = myBorderWidth,
             modMask            = myModMask,
             workspaces         = myWorkspaces,
-            normalBorderColor  = myNormalBorderColor,
+            normalBorderColor  = mySecondaryColor,
             focusedBorderColor = myThemeColor,
             keys               = myKeys,
             mouseBindings      = myMouseBindings,
