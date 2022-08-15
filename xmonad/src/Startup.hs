@@ -1,8 +1,10 @@
 module Startup where
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Cursor
+import XMonad.Hooks.SetWMName (setWMName)
 
 myStartupHook = do
+        setWMName "LG3D"
         spawnOnce "/bin/bash ~/.fehbg"
         spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh"
         setDefaultCursor xC_arrow
