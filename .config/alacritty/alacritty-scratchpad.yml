@@ -19,7 +19,7 @@ font:
  normal:
     family: Fira Code
     style: Regular
- size: 10
+ size: 14
  offset:
     x: 0
     y: 0
@@ -47,7 +47,7 @@ key_bindings:
 colors:
   # Default colors
   primary:
-    background: '#202020' #Background from Dark Theme
+    background: '#1c1c1c' #Background from Dark Theme
     foreground: '#dddddd'
 
   # Selection colors
