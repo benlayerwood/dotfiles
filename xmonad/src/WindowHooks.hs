@@ -8,8 +8,6 @@ import Scratchpad (myScratchPads)
 myManageHook = composeAll
     [ className =? "Gnome-calculator" --> doFloat
     , resource  =? "desktop_window"   --> doFloat
-    , resource  =? "blueman-applet"   --> doF (W.shift "b")
-    , resource  =? "Blueman-applet"   --> doF (W.shift "b")
     , resource  =? "pluma"            --> doFloat
     , className =? "VirtualBoxVM"     --> doFloat
     , className =? "zoom"             --> doFloat
