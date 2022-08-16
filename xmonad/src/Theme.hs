@@ -6,32 +6,37 @@ import Graphics.X11.Types
 import XMonad.Prompt
 import Data.List (isPrefixOf)
 
-myThemeColor = "#0181d1"
---myThemeColor = "#ff0000"
-mySecondaryColor  = "#acacac"
-myBackgroundColor = "#212121"
+mediumblue = "#0181d1"
+greyblue = "#425e68"
+lightgrey = "#acacac"
+darkgrey = "#212121"
+white = "#ffffff"
+
+myThemeColor = mediumblue
+mySecondaryColor  = lightgrey
+myBackgroundColor = darkgrey
 
 myTheme :: Theme
 myTheme = def
   { activeColor = myThemeColor
   , activeBorderColor = myThemeColor
   , activeTextColor = myThemeColor
-  , inactiveBorderColor = "#acacac"
-  , inactiveTextColor = "#acacac"
-  , inactiveColor = "#acacac"
+  , inactiveBorderColor = lightgrey
+  , inactiveTextColor = lightgrey
+  , inactiveColor = lightgrey
   , decoWidth = 3
   , decoHeight = 3
   }
 
 -- XPConfig Theme
 myFont = "xft:Source Sans Pro:size=15:weight=Semibold"
-myMonoFont = "xft:Fira Code:size=8"
+myMonoFont = "xft:Fira Code:size=13"
 
 tabTheme = def
-  { activeColor = "#425e68"
+  { activeColor = greyblue
   , activeBorderColor = myThemeColor
   , inactiveBorderColor = myThemeColor
-  , activeTextColor = "#ffffff"
+  , activeTextColor = white
   , inactiveTextColor = myThemeColor
   , inactiveColor = myBackgroundColor
   , activeBorderWidth = 0
