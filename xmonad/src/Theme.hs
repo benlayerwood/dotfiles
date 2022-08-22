@@ -11,8 +11,9 @@ greyblue = "#425e68"
 lightgrey = "#acacac"
 darkgrey = "#212121"
 white = "#ffffff"
+purple = "#a232be"
 
-myThemeColor = mediumblue
+myThemeColor = purple
 mySecondaryColor  = lightgrey
 myBackgroundColor = darkgrey
 
@@ -49,17 +50,17 @@ tabTheme = def
 myXPConfig :: XPConfig
 myXPConfig =
    XPC {
-          font                  = myFont
+          font                  = myMonoFont
         , bgColor               = mySecondaryColor
         , fgColor               = myThemeColor
         , bgHLight              = mySecondaryColor
         , fgHLight              = myThemeColor
-        , borderColor           = border def
+        , borderColor           = myThemeColor
         , promptBorderWidth     = 2
         , promptKeymap          = defaultXPKeymap
         , completionKey         = (0,xK_Tab)
         , changeModeKey         = xK_grave
-        , position              = CenteredAt 0.95 0.5
+        , position              = CenteredAt 0.5 0.3
         , height                = 33
         , maxComplRows          = Nothing
         , maxComplColumns       = Nothing
