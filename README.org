@@ -17,7 +17,7 @@ These are my personal configuration files for various applications.
   * [[.vimrc]] ([[https://www.vim.org/][Vim]]) /learn it!/
   * [[.doom.d]] ([[https://github.com/hlissner/doom-emacs][Doom Emacs]]) /the dark side plus cookies/
 ** Window Managers
-  * [[.xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
+  * [[xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
     → /Note/:
     - xmonad is built via [[https://docs.haskellstack.org/en/stable/README/][stack]]
       Compilation command:
@@ -28,7 +28,7 @@ These are my personal configuration files for various applications.
        =~/.xmonad/xmonad-x86_64-linux=
        and run
        =xmonad --restart=
-  * [[config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
+  * [[.config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
 ** Further Applications
   * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automize display configuration/
   * [[.config/gtk-3.0]] /gnome application theming/
