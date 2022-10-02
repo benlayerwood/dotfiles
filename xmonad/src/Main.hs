@@ -32,13 +32,13 @@ import WindowHooks
 import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.Groups.Wmii (shrinkText)
 import Theme
+import XMonad.Layout.NoBorders (lessBorders, Ambiguity (OnlyFloat))
 
 mySpacing = 0
-myLayout = spacingWithEdge mySpacing $ reflectHoriz $ avoidStruts $ tiled ||| tabs ||| Mirror tiled ||| three
+myLayout = lessBorders OnlyFloat $ spacingWithEdge mySpacing $ reflectHoriz $ avoidStruts $ tiled ||| tabs ||| Mirror tiled
   where
      tiled = Tall nmaster delta ratio
      tabs = renamed [Replace "Tabs"] $ tabbed shrinkText tabTheme
-     three = renamed [Replace "Three"] $ Mirror $ ThreeCol nmaster delta (1/3)
      -- The default number of windows in the master pane
      nmaster = 1
      -- Default proportion of screen occupied by master pane
