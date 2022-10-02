@@ -2,9 +2,12 @@ module Startup where
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Cursor
 import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Util.Run (spawnPipe)
 
 myStartupHook = do
         setWMName "LG3D"
+        spawnOnce "polybar"
+        spawnOnce "~/.scripts/syncUni.sh"
         spawnOnce "/bin/bash ~/.fehbg"
         spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh"
         setDefaultCursor xC_arrow
@@ -13,5 +16,4 @@ myStartupHook = do
         spawnOnce "blueman-applet"
         spawnOnce "nm-applet"
         spawnOnce "ayatana-webmail"
-        spawnOnce "polybar"
         spawnOnce "xscreensaver --no-splash"
