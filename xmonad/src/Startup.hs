@@ -6,7 +6,7 @@ import XMonad.Util.Run (spawnPipe)
 
 myStartupHook = do
         setWMName "LG3D"
-        spawnOnce "polybar"
+        spawnOnce "/bin/bash ~/.xmonad/polybar.sh"
         spawnOnce "~/.scripts/syncUni.sh"
         spawnOnce "/bin/bash ~/.fehbg"
         spawnOnce "/bin/bash ~/.xmonad/xrandrscript.sh"
