@@ -12,8 +12,9 @@ lightgrey = "#acacac"
 darkgrey = "#212121"
 white = "#ffffff"
 purple = "#a232be"
+yellow = "#e7b606"
 
-myThemeColor = purple
+myThemeColor = mediumblue
 mySecondaryColor  = lightgrey
 myBackgroundColor = darkgrey
 

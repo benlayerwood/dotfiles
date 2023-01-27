@@ -32,10 +32,10 @@ import WindowHooks
 import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.Groups.Wmii (shrinkText)
 import Theme
-import XMonad.Layout.NoBorders (lessBorders, Ambiguity (OnlyFloat))
+import XMonad.Layout.NoBorders (lessBorders, Ambiguity (OnlyFloat, OnlyScreenFloat))
 
 mySpacing = 0
-myLayout = lessBorders OnlyFloat $ spacingWithEdge mySpacing $ reflectHoriz $ avoidStruts $ tiled ||| tabs ||| Mirror tiled
+myLayout = lessBorders OnlyScreenFloat $ spacingWithEdge mySpacing $ reflectHoriz $ avoidStruts $ tabs ||| tiled ||| Mirror tiled
   where
      tiled = Tall nmaster delta ratio
      tabs = renamed [Replace "Tabs"] $ tabbed shrinkText tabTheme
