@@ -11,17 +11,9 @@ case $- in
 esac
 
 # Use vim as default manpage viewer
-if [ $HOSTNAME != "fedora" ] 
-then
-#export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-#    vim -R -c 'set ft=man nomod nolist nonumber' -c 'map q :q<CR>' \
-#    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-#    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
 
 # don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
@@ -96,10 +88,3 @@ fi
 set -o vi
 bind -m vi-command 'Control-l: clear-screen'
 bind -m vi-insert 'Control-l: clear-screen'
-
-#Add pfetch for non dropdown-terminal
-#emulator=$(basename "/"$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //'))
-#test $emulator = tilda || pfetch
-#if [ -f /bin/pfetch -o -f /usr/local/bin/pfetch ] && [ $emulator != "xterm" ] && [ $emulator != "tilda" ] && [ $emulator != "process.coffee" ] && [ $emulator != "--type=ptyHost" ] && [ $emulator != "com.intellij.idea.Main" ]; then
-#	pfetch
-#fi
