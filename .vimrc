@@ -15,6 +15,7 @@ Plugin 'gerw/vim-latex-suite'
 Plugin 'preservim/nerdtree'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'vim-scripts/csv.vim'
+Plugin 'michal-h21/mnutt'
 
 call vundle#end()
 filetype plugin indent on

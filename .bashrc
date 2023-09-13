@@ -1,5 +1,5 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-export EDITOR=/usr/bin/vim
+#
 export _JAVA_AWT_WM_NONREPARENTING=1
 export XENVIRONMENT="$HOME/.Xresources"
 export BAT_THEME="Visual Studio Dark+"
@@ -11,7 +11,7 @@ case $- in
 esac
 
 # Use vim as default manpage viewer
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
@@ -85,6 +85,6 @@ if [ -n "$DISPLAY" ]; then
   xset b off
 fi
 
-set -o vi
-bind -m vi-command 'Control-l: clear-screen'
-bind -m vi-insert 'Control-l: clear-screen'
+# set -o vi
+# bind -m vi-command 'Control-l: clear-screen'
+# bind -m vi-insert 'Control-l: clear-screen'

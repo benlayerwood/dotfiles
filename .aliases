@@ -20,8 +20,8 @@ alias getc="xclip -selection c -o"
 # dotfile git repo
 alias gitdot='git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-# cisco VPN alias
-alias vpn='/opt/cisco/anyconnect/bin/vpn'
+# vpn
+alias vpn='sudo openvpn --config ~/Documents/Informatik/Master/VPN/kit.ovpn'
 
 # bluetooth headphones
 alias sonyconnect="bluetoothctl connect 38:18:4C:D4:A8:A8"

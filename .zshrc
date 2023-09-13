@@ -1,12 +1,21 @@
-export EDITOR=/usr/bin/vim
 export _JAVA_AWT_WM_NONREPARENTING=1
 export BAT_THEME="Visual Studio Dark+"
-export PATH="$PATH:$HOME/Android/Sdk/emulator/"
-export PATH="$PATH:$HOME/.emacs.d/bin/"
+export PATH="$PATH:$HOME/.emacs.d/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
+
+# Env variables for cryptolab
+export PRAKTIKUM_NAME="beju"
+export PRAKTROOT="$HOME/Code/cryptolab"
+
 . ~/.aliases
-. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
+
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -15,9 +24,9 @@ SAVEHIST=1000
 unsetopt NOMATCH
 zstyle :compinstall filename '$HOME/.zshrc'
 
-autoload -Uz add-zsh-hook
-autoload -Uz compinit
-compinit
+#autoload -Uz add-zsh-hook
+#autoload -Uz compinit
+#compinit
 
 # Add git info
 autoload -Uz vcs_info
@@ -29,8 +38,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Set prompt
 setopt PROMPT_SUBST
-# PROMPT='%K{#474747} %B%F{green}%n%f%F{#e9cc42}@%F{#e9454d}%m%f %B%~%b%f %F{cyan}$%F{white}%b %K{#1c1c1c}%F{#474747}%F{white}%K{#1c1c1c}%b%f%k '
 PROMPT='%K{#474747} %B%F{green}%F{white} %B%1d%b%f %F{cyan}$%F{white}%b %K{#1c1c1c}%F{#474747}%F{white}%K{#1c1c1c}%b%f%k '
+
+# Add git symbol on the right
 RPROMPT='$vcs_info_msg_0_'
 
 # Set vi mode
@@ -102,3 +112,27 @@ function zvm_after_select_vi_mode() {
     ;;
   esac
 }
+
+bindkey "''${key[Up]}" up-line-or-search
+
+# Dirstack
+DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
+if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
+   dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
+   [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
+fi
+
+chpwd_dirstack() {
+   print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
+}
+add-zsh-hook -Uz chpwd chpwd_dirstack
+
+DIRSTACKSIZE='20'
+
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
+
+## Remove duplicate entries
+setopt PUSHD_IGNORE_DUPS
+
+## This reverts the +/- operators.
+setopt PUSHD_MINUS
