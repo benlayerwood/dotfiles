@@ -20,6 +20,7 @@ import XMonad.Layout.ThreeColumns
 
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.Rescreen
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W

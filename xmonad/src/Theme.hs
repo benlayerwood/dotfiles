@@ -32,8 +32,9 @@ myTheme = def
 
 -- XPConfig Theme
 myFont = "xft:Source Sans Pro:size=15:weight=Semibold"
-myMonoFont = "xft:Fira Code:size=13"
+myMonoFont = "xft:Fira Code:pixelsize=13:antialias=t"
 
+tabTheme :: Theme
 tabTheme = def
   { activeColor = greyblue
   , activeBorderColor = myThemeColor
@@ -45,7 +46,7 @@ tabTheme = def
   , inactiveBorderWidth = 0
   , decoWidth = 0
   , decoHeight = 23
-  , fontName = myMonoFont
+  , fontName = myFont
   }
 
 myXPConfig :: XPConfig
