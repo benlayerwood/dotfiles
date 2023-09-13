@@ -45,20 +45,6 @@ Doom monospace and variable pitch font
         doom-unicode-font "Source Code Pro:pixelsize=18")
 #+end_src
 
-Set Doom Modeline font
-#+begin_src emacs-lisp
-;;(if (facep 'mode-line-active)
-;;    (set-face-attribute 'mode-line-active nil :family "IBM Plex Mono" :height 100) ; For 29+
-;;    (set-face-attribute 'mode-line nil :family "IBM Plex Mono" :height 100))
-;;    (set-face-attribute 'mode-line-inactive nil :family "IBM Plex Mono" :height 100)
-#+end_src
-
-Add hook to set italic font
-#+begin_src emacs-lisp
-;; (add-hook 'text-mode-hook
-;;           (lambda() (set-face-attribute 'italic nil :family "Fira Sans" :width 'condensed :slant 'italic)
-;; ))
-#+end_src
 Reduce font-size for compilation buffer
 #+begin_src emacs-lisp
 (add-hook 'compilation-mode-hook
@@ -121,6 +107,7 @@ Use fancy bullets
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
             (lambda ()
+              (writeroom-mode)
               (org-superstar-mode 1)
               (org-appear-mode)))
 #+end_src
@@ -152,11 +139,6 @@ Modes based on file name
   (add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
 #+end_src
 
-Lean exec path
-#+begin_src emacs-lisp
-;;(setq lean-rootdir "$HOME/.local/bin")
-#+end_src
-
 * Keybindings
 
 Custom keybindings
@@ -181,22 +163,26 @@ Custom keybindings
         :desc "Hide Modeline"
         "m h" #'hide-mode-line-mode)
 
-
   (map! :leader
         :desc "Deepl Translate"
         "d" #'txl-translate-region-or-paragraph)
 
+  (map! :leader
+        :desc "Toggle Writeroom"
+        "t Z" #'toggle-writeroom-mode)
+
+
   ;;(add-hook 'PDFView
   ;;      (lambda () (local-set-key (kbd "b") #'pdf-history-backward))
   ;;)
+(defun toggle-writeroom-mode ()
+  "Toggle writeroom-mode on or off."
+  (interactive)
+  (if writeroom-mode
+      (writeroom-mode -1) ; If writeroom-mode is active, disable it.
+    (writeroom-mode 1))) ; If writeroom-mode is inactive, enable it.
 #+end_src
 * Doom
-** Splash Screen
-Custom image for splash screen
-#+begin_src emacs-lisp
-  (setq fancy-splash-image "~/Pictures/logos/black-hole-doom.png")
-#+end_src
-
 ** Modeline
 Modeline settings
 #+begin_src emacs-lisp
@@ -255,25 +241,10 @@ Connect to deepl api
 #+end_src
 
 * Programming
-  Use Kotlin LSP
-  #+begin_src emacs-lisp
-  ;;(setq  lsp-clients-kotlin-server-executable "~/Code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
-  #+end_src
-
-  Set Rust src Path
-  #+begin_src emacs-lisp
-  (setq racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust")
-  #+end_src
-
   Set company-mode for C
   Run ~irony-install-server~ to install irony
   #+begin_src emacs-lisp
   (add-to-list 'company-backends 'company-irony)
-  #+end_src
-
-  Add Java-Mode Hook
-  #+begin_src emacs-lisp
-  ;;(add-hook 'java-mode-hook #'lsp)
   #+end_src
 
   Irony Server prefix
@@ -294,39 +265,31 @@ Basic Configuration
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-navigator t)
 (setq dashboard-agenda-time-string-format "%d.%m.%Y")
+(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
+                                                   :height 1.1
+                                                   :v-adjust -0.05
+                                                   :face 'font-lock-keyword-face))
 #+end_src
 
 Items to be displayed on dashboard
 #+begin_src emacs-lisp
-(setq dashboard-items '((recents  . 8)
+(setq dashboard-items '((recents  . 5)
                         (bookmarks . 15)
                         (projects . 5)))
-#+end_src
-
-Custom widget
-#+begin_src emacs-lisp
-;;(defun dashboard-insert-custom (list-size)
-;;(insert "Custom text"))
-;;(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
-;;(add-to-list 'dashboard-items '(Text) t)
 #+end_src
 
 * Dired
 Dired ls options
 #+begin_src emacs-lisp
-(setq dired-listing-switches "-agGh --time-style=locale --group-directories-first")
+(setq dired-listing-switches "-aghGD --time-style=locale --group-directories-first")
 #+end_src
 
 Use larger font for dired
 #+begin_src emacs-lisp
-(add-hook 'dired-mode 'dired-larger-font)
- (defun dired-larger-font ()
-   "Set larger-font"
-   (interactive)
-   (setq buffer-face-mode-face (font-spec :family "Inconsolata" :height 100 :weight 'regular))
-   ;(writeroom-mode)
-   ;(dired-hide-details-mode)
-   (buffer-face-mode))
+(add-hook 'dired-mode-hook
+          (lambda()
+            (writeroom-mode)
+))
 #+end_src
 
 * Div
@@ -348,6 +311,23 @@ Increase font size for rfc docs
 ))
 #+end_src
 
+* Writeroom-Mode
+#+begin_src emacs-lisp
+(setq writeroom-border-width 10)
+(setq writeroom-width 115)
+(setq writeroom-fullscreen-effect 'maximized)
+
+(add-hook 'writeroom-mode-enable-hook
+          (lambda()
+            (text-scale-increase 1)
+))
+
+(add-hook 'writeroom-mode-disable-hook
+          (lambda()
+            (text-scale-decrease 1)
+))
+#+end_src
+
 * Bibliography management
 Set path to default bibliography
 #+begin_src emacs-lisp
@@ -360,7 +340,6 @@ Set path to default bibliography
 #+begin_src emacs-lisp
 (require 'simplenote2)
 (setq simplenote2-email "benholz@mailbox.org")
-(setq simplenote2-password "apHmY$K$7@54B")
 (simplenote2-setup)
 #+end_src
 

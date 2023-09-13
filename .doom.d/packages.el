@@ -77,3 +77,7 @@
 (package! flymake-python-pyflakes)
 (package! simplenote2)
 (package! org-appear)
+(package! writeroom-mode)
+(package! nerd-icons)
+(package! all-the-icons)
+(package! page-break-lines)
