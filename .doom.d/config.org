@@ -193,6 +193,7 @@ Modeline settings
   (setq doom-modeline-height 1)
   (setq doom-modeline-modal-icon t)
   (setq doom-modeline-enable-word-count t)
+  (setq doom-modeline-buffer-state-icon nil)
 #+end_src
 
 Modeline structure
@@ -265,10 +266,6 @@ Basic Configuration
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-navigator t)
 (setq dashboard-agenda-time-string-format "%d.%m.%Y")
-(setq dashboard-footer-icon (all-the-icons-octicon "dashboard"
-                                                   :height 1.1
-                                                   :v-adjust -0.05
-                                                   :face 'font-lock-keyword-face))
 #+end_src
 
 Items to be displayed on dashboard
@@ -279,9 +276,14 @@ Items to be displayed on dashboard
 #+end_src
 
 * Dired
+Icons
+#+begin_src emacs-lisp
+(setq all-the-icons-dired-monochrome nil)
+#+end_src
+
 Dired ls options
 #+begin_src emacs-lisp
-(setq dired-listing-switches "-aghGD --time-style=locale --group-directories-first")
+(setq dired-listing-switches "-aghD --time-style=locale --group-directories-first")
 #+end_src
 
 Use larger font for dired
@@ -290,6 +292,11 @@ Use larger font for dired
           (lambda()
             (writeroom-mode)
 ))
+#+end_src
+
+Keep window split
+#+begin_src emacs-lisp
+(setq dired-find-subdir t)
 #+end_src
 
 * Div
@@ -316,6 +323,7 @@ Increase font size for rfc docs
 (setq writeroom-border-width 10)
 (setq writeroom-width 115)
 (setq writeroom-fullscreen-effect 'maximized)
+(setq writeroom-maximize-window nil)
 
 (add-hook 'writeroom-mode-enable-hook
           (lambda()
@@ -340,6 +348,7 @@ Set path to default bibliography
 #+begin_src emacs-lisp
 (require 'simplenote2)
 (setq simplenote2-email "benholz@mailbox.org")
+(setq simplenote2-password "Fi37b4f9&vx9*")
 (simplenote2-setup)
 #+end_src
 

@@ -18,15 +18,6 @@
         doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :style "Regular" :size 19 :weight 'regular)
         doom-unicode-font "Source Code Pro:pixelsize=18")
 
-;;(if (facep 'mode-line-active)
-;;    (set-face-attribute 'mode-line-active nil :family "IBM Plex Mono" :height 100) ; For 29+
-;;    (set-face-attribute 'mode-line nil :family "IBM Plex Mono" :height 100))
-;;    (set-face-attribute 'mode-line-inactive nil :family "IBM Plex Mono" :height 100)
-
-;; (add-hook 'text-mode-hook
-;;           (lambda() (set-face-attribute 'italic nil :family "Fira Sans" :width 'condensed :slant 'italic)
-;; ))
-
 (add-hook 'compilation-mode-hook
           (lambda()
               (text-scale-decrease 0)
@@ -50,6 +41,7 @@
 
   (add-hook 'org-mode-hook
             (lambda ()
+              (writeroom-mode)
               (org-superstar-mode 1)
               (org-appear-mode)))
 
@@ -66,8 +58,6 @@
   (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
   (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
   (add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
-
-;;(setq lean-rootdir "$HOME/.local/bin")
 
   (global-set-key (kbd "C-x x") 'kill-current-buffer)
   (global-set-key (kbd "<mouse-8>") 'switch-to-prev-buffer)
@@ -89,16 +79,24 @@
         :desc "Hide Modeline"
         "m h" #'hide-mode-line-mode)
 
-
   (map! :leader
         :desc "Deepl Translate"
         "d" #'txl-translate-region-or-paragraph)
 
+  (map! :leader
+        :desc "Toggle Writeroom"
+        "t Z" #'toggle-writeroom-mode)
+
+
   ;;(add-hook 'PDFView
   ;;      (lambda () (local-set-key (kbd "b") #'pdf-history-backward))
   ;;)
-
-  (setq fancy-splash-image "~/Pictures/logos/black-hole-doom.png")
+(defun toggle-writeroom-mode ()
+  "Toggle writeroom-mode on or off."
+  (interactive)
+  (if writeroom-mode
+      (writeroom-mode -1) ; If writeroom-mode is active, disable it.
+    (writeroom-mode 1))) ; If writeroom-mode is inactive, enable it.
 
   (setq doom-modeline-bar-width 7)
   (setq doom-modeline-major-mode-icon t)
@@ -107,13 +105,12 @@
   (setq doom-modeline-height 1)
   (setq doom-modeline-modal-icon t)
   (setq doom-modeline-enable-word-count t)
+  (setq doom-modeline-buffer-state-icon nil)
 
   (after! doom-modeline
     (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
     '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs "  "))) ; <-- added padding here
-  (setq
-    all-the-icons-scale-factor 1.1)
 
 (setq doom-fallback-buffer-name "*dashboard*")
 
@@ -138,13 +135,7 @@
 (setq txl-deepl-api-key "424c308a-a3cb-343c-840d-9c905fbd640d:fx")
 (setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
 
-  ;;(setq  lsp-clients-kotlin-server-executable "~/Code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server")
-
-  (setq racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust")
-
   (add-to-list 'company-backends 'company-irony)
-
-  ;;(add-hook 'java-mode-hook #'lsp)
 
   (setq irony-server-install-prefix "$HOME/.nix-profile")
 
@@ -158,25 +149,20 @@
 (setq dashboard-set-navigator t)
 (setq dashboard-agenda-time-string-format "%d.%m.%Y")
 
-(setq dashboard-items '((recents  . 8)
+(setq dashboard-items '((recents  . 5)
                         (bookmarks . 15)
                         (projects . 5)))
 
-;;(defun dashboard-insert-custom (list-size)
-;;(insert "Custom text"))
-;;(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
-;;(add-to-list 'dashboard-items '(Text) t)
+(setq all-the-icons-dired-monochrome nil)
 
-(setq dired-listing-switches "-agGh --time-style=locale --group-directories-first")
+(setq dired-listing-switches "-aghD --time-style=locale --group-directories-first")
 
-(add-hook 'dired-mode 'dired-larger-font)
- (defun dired-larger-font ()
-   "Set larger-font"
-   (interactive)
-   (setq buffer-face-mode-face (font-spec :family "Inconsolata" :height 100 :weight 'regular))
-   ;(writeroom-mode)
-   ;(dired-hide-details-mode)
-   (buffer-face-mode))
+(add-hook 'dired-mode-hook
+          (lambda()
+            (writeroom-mode)
+))
+
+(setq dired-find-subdir t)
 
 (add-to-list '+lookup-provider-url-alist '("Oxford Dictionary" "https://www.oxfordlearnersdictionaries.com/definition/english/%s"))
 
@@ -187,13 +173,28 @@
               (text-scale-increase 1)
 ))
 
+(setq writeroom-border-width 10)
+(setq writeroom-width 115)
+(setq writeroom-fullscreen-effect 'maximized)
+(setq writeroom-maximize-window nil)
+
+(add-hook 'writeroom-mode-enable-hook
+          (lambda()
+            (text-scale-increase 1)
+))
+
+(add-hook 'writeroom-mode-disable-hook
+          (lambda()
+            (text-scale-decrease 1)
+))
+
 (setq bibtex-completion-bibliography '("~/Code/ixp_scrubber/paper/literature.bib"))
 
 (setq! citar-bibliography '("~/Code/ixp_scrubber/paper/literature.bib" "~/Code/sdn-report/report/literature.bib"))
 
 (require 'simplenote2)
 (setq simplenote2-email "benholz@mailbox.org")
-(setq simplenote2-password "apHmY$K$7@54B")
+(setq simplenote2-password "Fi37b4f9&vx9*")
 (simplenote2-setup)
 
 (add-hook 'simplenote2-note-mode-hook
