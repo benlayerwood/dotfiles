@@ -98,7 +98,6 @@
     # tools
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     emacs
-    emacs-all-the-icons-fonts
     wget
     git
     gcc
@@ -120,12 +119,9 @@
     htop
     networkmanagerapplet
     xss-lock
-    hplip
     jmtpfs
     imagemagick
     ripgrep
-    poppler
-    poppler_utils
 
     gcr
     gnumake
@@ -157,7 +153,7 @@
     gparted
     chromium
     spotify
-    signal-desktop
+    signal-desktop-beta
     autorandr
     xsane
     morgen
@@ -206,7 +202,10 @@
     liberation_ttf
     roboto
     material-icons
+    material-symbols
     dejavu_fonts
+    powerline-fonts
+    (nerdfonts.override { fonts = [ "DroidSansMono" "NerdFontsSymbolsOnly"]; })
   ];
 
   # xdg.mime.defaultApplications = {
@@ -222,7 +221,7 @@
   programs.adb.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.nginx = {
-    enable = false;
+    enable = true;
       virtualHosts."192.168.0.92" = {
         locations."/" = {
                 proxyPass = "http://127.0.0.1:4000";
@@ -247,7 +246,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = false; # run sudo nixos-rebuild switch --install-bootloader to start ssh service
+  services.openssh.enable = true; # run sudo nixos-rebuild switch --install-bootloader to start ssh service
   # services.emacs = {
   #   enable = true;
   # };
@@ -308,10 +307,10 @@
   hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 161 162 9100 ];
-  # networking.firewall.allowedUDPPorts = [ 161 162 9100 ];
+  networking.firewall.allowedTCPPorts = [ 161 162 5900 49710 9100 8080];
+  networking.firewall.allowedUDPPorts = [ 161 162 49710 9100 8080];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
   # networking.extraHosts = ''
   #   10.0.0.1 sdnbw
   # '';
