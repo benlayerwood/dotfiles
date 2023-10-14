@@ -1,0 +1,26 @@
+set font "FiraCode 15"
+#zoom settings
+set zoom-min 10
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+set guioptions sv
+
+set selection-clipboard clipboard
+set mouse_select_1 scroll
+set mouse_select_2 start
+set mouse_select_3 finish
+set mouse_copy yank
+
+set window-title-basename true
+
+set inputbar-fg "#96CEE4"
+set completion-highlight-bg "#96CEE4"
+set completion-bg "#232323"
+
+map j navigate next
+map k navigate previous
+map [fullscreen] j navigate next
+map [fullscreen] k navigate previous
+map w adjust_window best-fit
+map [fullscreen] w adjust_window best-fit
