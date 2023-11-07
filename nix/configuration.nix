@@ -4,6 +4,119 @@
 
 { config, pkgs, ... }:
 
+let
+  essentials = with pkgs; [
+    vim
+    wget
+    git
+    gcc
+    fd
+    bash
+    zsh
+    emacs
+    alacritty
+  ];
+
+  system-tools = with pkgs; [
+    exa
+    bat
+    zip
+    unzip
+    dig
+    vagrant
+    ffmpeg
+    rtkit
+    dbus
+    bluez
+    htop
+    jmtpfs
+    imagemagick
+    ripgrep
+    btrfs-progs
+    pciutils
+  ];
+
+  desktop-tools = with pkgs; [
+    i3
+    rofi
+    xss-lock
+    networkmanagerapplet
+    libcanberra-gtk3
+    gsettings-desktop-schemas
+    gsettings-qt
+    libsForQt5.qt5ct
+    glib
+  ];
+
+  tools = with pkgs; [
+    gcr
+    isort
+    pferd
+    pass
+    acpilight
+    ispell
+    libsecret
+    libclang
+    rtags
+    gvfs
+    gnome.gvfs
+    cifs-utils
+    nfs-utils
+    wireshark
+  ];
+
+  programming = with pkgs; [
+    pipenv
+    (python3.withPackages(ps: with ps; [ numpy scipy pandas matplotlib jupyter]))
+    jdk8
+    jupyter
+    libcanberra-gtk3
+    gsettings-desktop-schemas
+    gsettings-qt
+    libsForQt5.qt5ct
+    glib
+    gnumake
+    cmake
+    glslang
+    irony-server
+    nixfmt
+  ];
+
+  desktop-apps = with pkgs; [
+    appimage-run
+    vlc
+    zathura
+    librewolf
+    betterbird
+    arandr
+    flameshot
+    anki
+    discord
+    gparted
+    ungoogled-chromium
+    firefox
+    spotify
+    autorandr
+    xsane
+    morgen
+    simplenote
+    nextcloud-client
+    element-desktop
+    cinnamon.nemo
+    baobab
+    drawio
+    pdfarranger
+    element-desktop
+    whatsapp-for-linux
+  ];
+
+  gnome-apps = with pkgs; [
+    gnome.gnome-contacts
+    gnome.simple-scan
+    gnome.eog
+    gnome.cheese
+  ];
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -91,96 +204,8 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # tools
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    gcc
-    fd
-    bash
-    zsh
-    rofi
-    exa
-    bat
-    zip
-    unzip
-    alacritty
-    dig
-    vagrant
-    ffmpeg
-    rtkit
-    dbus
-    bluez
-    htop
-    networkmanagerapplet
-    xss-lock
-    jmtpfs
-    imagemagick
-    ripgrep
-    btrfs-progs
-
-    libcanberra-gtk3
-    gsettings-desktop-schemas
-    gsettings-qt
-    libsForQt5.qt5ct
-    glib
-    gcr
-    gnumake
-    cmake
-    glslang
-    irony-server
-    pipenv
-    (python3.withPackages(ps: with ps; [ numpy scipy pandas matplotlib jupyter]))
-    jupyter
-    isort
-    jdk8
-
-    i3
-    pferd
-    pass
-    acpilight
-    ispell
-    libsecret
-    libclang
-    nixfmt
-    rtags
-    gvfs
-    gnome.gvfs
-    cifs-utils
-    nfs-utils
-    wireshark
-
-    emacs
-    appimage-run
-    vlc
-    zathura
-    librewolf
-    betterbird
-    arandr
-    flameshot
-    anki
-    discord
-    gparted
-    ungoogled-chromium
-    firefox
-    spotify
-    autorandr
-    xsane
-    morgen
-    simplenote
-    nextcloud-client
-    element-desktop
-    cinnamon.nemo
-    gnome.gnome-contacts
-    gnome.simple-scan
-    gnome.eog
-    gnome.cheese
-    baobab
-    drawio
-    pdfarranger
-    whatsapp-for-linux
-  ];
+  environment.systemPackages =
+    essentials ++ system-tools ++ desktop-tools ++ tools ++ programming ++ desktop-apps ++ gnome-apps;
 
   # Environment Variables
   environment.variables = {
