@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/bin/bash
 monitors=$(xrandr --listmonitors | grep Monitors | cut -d: -f2)
 if [ $monitors = "3" ]; then
    autorandr three
