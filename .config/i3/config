@@ -15,8 +15,6 @@ font pango: IBM Plex Sans 13
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id nextcloud
-exec --no-startup-id gnome-keyring-daemon
-exec --no-startup-id emacs --daemon
 
 # Set triple monitors and background
 exec --no-startup-id /home/ben/.config/i3/setscreen.sh; /home/ben/.fehbg
@@ -40,6 +38,9 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+Return exec "alacritty --class \\"alacritty-floating\\" --config-file \\"/home/ben/.config/alacritty/alacritty-scratchpad.yml\\"" 
+
+# 
 
 bindsym $mod+o exec /home/ben/.scripts/monitors.sh
 bindsym $mod+plus exec /home/ben/.scripts/pskillscript.sh
@@ -74,6 +75,7 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+
 # split in horizontal orientation
 bindsym $mod+y split h
 
@@ -98,6 +100,10 @@ bindsym $mod+Shift+w move output left
 
 # toggle tiling / floating
 bindsym $mod+Shift+t floating toggle
+
+# configure scratchpad
+bindsym $mod+Shift+u move scratchpad
+bindsym $mod+u scratchpad show 
 
 # change focus between tiling / floating windows
 # bindsym $mod+space focus mode_toggle
@@ -207,6 +213,13 @@ exec_always --no-startup-id pgrep polybar | xargs kill; polybar --reload topbar
 default_border pixel 2
 
 for_window [all] title_window_icon yes
+
+for_window [class="Chromium-browser"] border normal
+for_window [class="alacritty-floating"] floating enable
+# for_window [class="Chromium-browser"] titlebar none
+# for_window [class="chromium-browser"] border normal
+# for_window [class="chromium-browser"] titlebar none
+
 
 #bindsym $mod+Shift+space workspace 7 move workspace to output primary; workspace back_and_forth
 #bindsym $mod+Shift+space workspace 1 move workspace to output eDP-1; workspace 2 move workspace to output HDMI-1; workspace 3 move workspace to output DP-1;
