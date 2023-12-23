@@ -52,32 +52,17 @@
 (package! guess-language)
 (package! org-superstar)
 (package! ox-twbs)
-;;(package! lean4-mode :recipe
-;;  (:host github
-;;   :repo "leanprover/lean4-mode"))
 (package! request)
 (package! txl :recipe
   (:host github
    :repo "tmalsburg/txl.el"))
 (package! dashboard)
-;;(package! mu4e)
-;;(package! org-msg)
-;;(package! lsp-java)
-;;(package! csv-mode)
-(package! company-irony)
-(package! irony)
-(package! company-c-headers)
-(package! company-irony-c-headers)
 (package! rfc-mode)
-;;(package! chatgpt
-;;  :recipe (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el")))
 (package! biblio)
-(package! py-autopep8)
-(package! elpy)
-(package! flymake-python-pyflakes)
 (package! simplenote2)
 (package! org-appear)
-(package! writeroom-mode)
 (package! page-break-lines)
 (package! nerd-icons)
 (package! all-the-icons)
+(package! typst-ts-mode
+  :recipe (:host sourcehut :repo "meow_king/typst-ts-mode"))

@@ -4,21 +4,18 @@
 #+PROPERTY: header-args :tangle config.el
 #+STARTUP: overview
 
+* Compilation
+To compile this org-file to =config.el=, run ~org-babel-tangle~ (C-c C-v t)
 * Basic Configuration
 ** Locale
 Spell checker configuration
 #+begin_src emacs-lisp
-  (setq ispell-dictionary "english")
+(setq ispell-dictionary "english")
 #+end_src
 
 Starting day of week in calendar
 #+begin_src emacs-lisp
-  (setq calendar-week-start-day 1)
-#+end_src
-
-Rename outline from org-beamer to german title
-#+begin_src emacs-lisp
-  (setq org-beamer-outline-frame-title "Gliederung")
+(setq calendar-week-start-day 1)
 #+end_src
 
 Format date
@@ -34,15 +31,15 @@ Format date
 Functionality for identifying user
 
 #+begin_src emacs-lisp
-  (setq user-full-name "Benjamin Schichtholz"
-      user-mail-address "schichtholz@mailbox.org")
+(setq user-full-name "Benjamin Schichtholz"
+    user-mail-address "schichtholz@mailbox.org")
 #+end_src
 ** Font
 Doom monospace and variable pitch font
 #+begin_src emacs-lisp
-  (setq doom-font "IBM Plex Mono:pixelsize=18"
-        doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :style "Regular" :size 19 :weight 'regular)
-        doom-unicode-font "Source Code Pro:pixelsize=18")
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :style "Regular" :weight 'regular)
+      doom-variable-pitch-font (font-spec :family "IBM Plex Sans" :style "Regular" :weight 'regular)
+      doom-unicode-font (font-spec :family "Noto Color Emoji" :size 17 :weight 'regular))
 #+end_src
 
 Reduce font-size for compilation buffer
@@ -52,15 +49,10 @@ Reduce font-size for compilation buffer
               (text-scale-decrease 0)
 ))
 #+end_src
-
-Set font for unicode glyphs
-#+begin_src emacs-lisp
-  (setq doom-unicode-font "Iosevka")
-#+end_src
 ** Theme
 Current theme:
 #+begin_src emacs-lisp
-  (setq doom-theme 'doom-old-hope)
+(setq doom-theme 'doom-Iosvkem)
 #+end_src
 
 Preferred dark themes:
@@ -69,7 +61,6 @@ Preferred dark themes:
 - doom-peacock
 - doom-material-dark
 - doom-xcode
-- doom-badger
 - doom-old-hope
 - wombat
 Preferred light themes:
@@ -82,9 +73,9 @@ Preferred light themes:
 ** Editor
 Set line numbers, spacing and tab width
 #+begin_src emacs-lisp
-  (setq display-line-numbers-type 'relative)
-  (setq-default tab-width 2)
-  (setq line-spacing 0.2)
+(setq display-line-numbers-type 'relative)
+(setq-default tab-width 2)
+(setq line-spacing 0.2)
 #+end_src
 
 ** Frames
@@ -97,111 +88,101 @@ Set Title bar template for frames
 * Org
 Configure org directory and hide markers for text configuration
 #+begin_src emacs-lisp
-  (setq org-directory "~/Org/")
-  (setq org-hide-emphasis-markers t)
-  (setq org-image-actual-width '(300))
-  (setq org-toggle-pretty-entitites t)
+(setq org-directory "~/Org/")
+(setq org-hide-emphasis-markers t)
+(setq org-image-actual-width '(300))
+(setq org-toggle-pretty-entitites t)
 #+end_src
 
 Use fancy bullets
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
             (lambda ()
-              (writeroom-mode)
               (org-superstar-mode 1)
               (org-appear-mode)))
 #+end_src
 
 Custom headline bullets
 #+begin_src emacs-lisp
-   (setq org-superstar-headline-bullets-list '(?❂ ?✽ ?☉ ?✶))
+(setq org-superstar-headline-bullets-list '(?❂ ?✽ ?☉ ?✶))
 #+end_src
-)
 
 Larger font for headings
 #+begin_src emacs-lisp
-  (custom-set-faces
-    '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
-    '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
-    '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
-    '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
-    '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
-  )
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.3))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+)
 #+end_src
+
 * File-specific Modes
-:PROPERTIES:
-:ID:       273cf0cc-3c65-484a-a3e6-f6fc6342a384
-:END:
 Modes based on file name
 #+begin_src emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
-  (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
-  (add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
+(add-to-list 'auto-mode-alist '("\\.http\\'" . restclient-mode))
+(add-to-list 'auto-mode-alist '("\\rc\\'" . conf-mode))
+(add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
+(add-to-list 'auto-minor-mode-alist '("\\.pdf" . hide-mode-line-mode))
+(add-to-list '+zen-mixed-pitch-modes 'typst-ts-mode)
 #+end_src
 
 * Keybindings
 
 Custom keybindings
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-x x") 'kill-current-buffer)
-  (global-set-key (kbd "<mouse-8>") 'switch-to-prev-buffer)
-  (global-set-key (kbd "<mouse-9>") 'switch-to-next-buffer)
-  (map! :leader
-        :desc "Launch Eshell"
-        "o E" #'eshell)
+(global-set-key (kbd "C-x x") 'kill-current-buffer)
+(global-set-key (kbd "<mouse-8>") 'switch-to-prev-buffer)
+(global-set-key (kbd "<mouse-9>") 'switch-to-next-buffer)
+(global-set-key (kbd "C-c C-o") 'toggle-typst-preview)
 
-  (map! :leader
-        :desc "Launch Mu4e"
-        "o m" #'mu4e)
-  (map! :leader
-        :desc "Launch Shell"
-        "s h" #'shell)
-  (map! :leader
-        :desc "Export latex beamer to pdf"
-        "l b" #'org-beamer-export-to-pdf)
-  (map! :leader
-        :desc "Hide Modeline"
-        "m h" #'hide-mode-line-mode)
+(map! :leader
+      :desc "Launch Eshell"
+      "o E" #'eshell)
+(map! :leader
+      :desc "Launch Shell"
+      "s h" #'shell)
+(map! :leader
+      :desc "Hide Modeline"
+      "m h" #'hide-mode-line-mode)
 
-  (map! :leader
-        :desc "Deepl Translate"
-        "d" #'txl-translate-region-or-paragraph)
-
-  (map! :leader
-        :desc "Toggle Writeroom"
-        "t Z" #'toggle-writeroom-mode)
-
-
-  ;;(add-hook 'PDFView
-  ;;      (lambda () (local-set-key (kbd "b") #'pdf-history-backward))
-  ;;)
-(defun toggle-writeroom-mode ()
-  "Toggle writeroom-mode on or off."
+(defun toggle-typst-preview ()
+  "Switch to the next buffer if the current buffer's filetype is .typ,
+   and switch to the previous buffer if the filetype is .pdf."
   (interactive)
-  (if writeroom-mode
-      (writeroom-mode -1) ; If writeroom-mode is active, disable it.
-    (writeroom-mode 1))) ; If writeroom-mode is inactive, enable it.
+  (let ((filetype (file-name-extension (or buffer-file-name ""))))
+    (cond
+     ((string-equal filetype "typ") (next-buffer))
+     ((string-equal filetype "pdf") (previous-buffer))
+     (t (message "Unsupported filetype: %s" filetype)))))
 #+end_src
+
 * Doom
 ** Modeline
+Enable modeline
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'doom-modeline-mode)
+#+end_src
+
 Modeline settings
 #+begin_src emacs-lisp
-  (setq doom-modeline-bar-width 7)
-  (setq doom-modeline-major-mode-icon t)
-  (setq doom-modeline-major-mode-color-icon t)
-  (setq doom-modeline-buffer-modification-icon t)
-  (setq doom-modeline-height 1)
-  (setq doom-modeline-modal-icon t)
-  (setq doom-modeline-enable-word-count t)
-  (setq doom-modeline-buffer-state-icon nil)
+(setq doom-modeline-bar-width 7)
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-major-mode-color-icon t)
+(setq doom-modeline-buffer-modification-icon t)
+(setq doom-modeline-height 1)
+(setq doom-modeline-modal-icon t)
+(setq doom-modeline-enable-word-count t)
+(setq doom-modeline-buffer-state-icon nil)
 #+end_src
 
 Modeline structure
 #+begin_src emacs-lisp
-  (after! doom-modeline
-    (doom-modeline-def-modeline 'main
-    '(bar matches buffer-info remote-host buffer-position parrot selection-info)
-    '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs "  "))) ; <-- added padding here
+(after! doom-modeline
+  (doom-modeline-def-modeline 'main
+  '(bar matches buffer-info remote-host buffer-position parrot selection-info)
+  '(misc-info minor-modes checker input-method buffer-encoding major-mode process vcs "  "))) ; <-- added padding here
 #+end_src
 
 ** Fallback Buffer
@@ -213,7 +194,7 @@ Modeline structure
 ** Eshell
 Configure colors and prompt in eshell
 #+begin_src emacs-lisp
-  (setq
+(setq
   eshell-prompt-function (lambda nil
       (concat
       (propertize (eshell/pwd) 'face `(:foreground "#67e2e9"))
@@ -225,33 +206,27 @@ Configure colors and prompt in eshell
                   'face 'mode-line-highlight)
           (propertize (current-time-string)
           'face 'font-lock-keyword-face))
-  )
+)
 #+end_src
 ** Shell
 Bash as default shell
 #+begin_src emacs-lisp
-  (setq shell-file-name "/run/current-system/sw/bin/bash")
+  (setq shell-file-name "/usr/bin/bash")
 #+end_src
-* Translation
+* Languages
 Connect to deepl api
 #+begin_src emacs-lisp
 (require 'txl)
-(setq txl-languages '(FR . EN-GB))
+(setq txl-languages '(EN-GB . DE))
 (setq txl-deepl-api-key "424c308a-a3cb-343c-840d-9c905fbd640d:fx")
 (setq txl-deepl-api-url "https://api-free.deepl.com/v2/translate")
 #+end_src
 
-* Programming
-  Set company-mode for C
-  Run ~irony-install-server~ to install irony
-  #+begin_src emacs-lisp
-  (add-to-list 'company-backends 'company-irony)
-  #+end_src
+Add lookup provides
+#+begin_src emacs-lisp
+(add-to-list '+lookup-provider-url-alist '("Oxford Dictionary" "https://www.oxfordlearnersdictionaries.com/definition/english/%s"))
+#+end_src
 
-  Irony Server prefix
-  #+begin_src emacs-lisp
-  (setq irony-server-install-prefix "$HOME/.nix-profile")
-  #+end_src
 * Dashboard
 [[https://github.com/emacs-dashboard/emacs-dashboard][Extensible Emacs Start Screen]]
 
@@ -281,17 +256,13 @@ Icons
 (setq all-the-icons-dired-monochrome nil)
 #+end_src
 
-Dired ls options
-#+begin_src emacs-lisp
-(setq dired-listing-switches "-aghD --time-style=locale --group-directories-first")
-#+end_src
-
-Use larger font for dired
+Use larger font for dired and hide details on files/folders
 #+begin_src emacs-lisp
 (add-hook 'dired-mode-hook
           (lambda()
-            (writeroom-mode)
-))
+          (dired-hide-details-mode)
+          (writeroom-mode))
+)
 #+end_src
 
 Keep window split
@@ -299,12 +270,7 @@ Keep window split
 (setq dired-find-subdir t)
 #+end_src
 
-* Div
-Add lookup provides
-#+begin_src emacs-lisp
-(add-to-list '+lookup-provider-url-alist '("Oxford Dictionary" "https://www.oxfordlearnersdictionaries.com/definition/english/%s"))
-#+end_src
-
+* RFC
 Set location of rfc documents
 #+begin_src emacs-lisp
 (setq rfc-mode-directory (expand-file-name "~/rfc/"))
@@ -315,40 +281,21 @@ Increase font size for rfc docs
 (add-hook 'rfc-mode-hook
           (lambda()
               (text-scale-increase 1)
-))
-#+end_src
-
-* Writeroom-Mode
-#+begin_src emacs-lisp
-(setq writeroom-border-width 10)
-(setq writeroom-width 115)
-(setq writeroom-fullscreen-effect 'maximized)
-(setq writeroom-maximize-window nil)
-
-(add-hook 'writeroom-mode-enable-hook
-          (lambda()
-            (text-scale-increase 1)
-))
-
-(add-hook 'writeroom-mode-disable-hook
-          (lambda()
-            (text-scale-decrease 1)
+              (doom/window-maximize-buffer)
 ))
 #+end_src
 
 * Bibliography management
 Set path to default bibliography
 #+begin_src emacs-lisp
-(setq bibtex-completion-bibliography '("~/Code/ixp_scrubber/paper/literature.bib"))
-
-(setq! citar-bibliography '("~/Code/ixp_scrubber/paper/literature.bib" "~/Code/sdn-report/report/literature.bib"))
+(setq bibtex-completion-bibliography '("~/Code/masterthesis/references.bib"))
+(setq! citar-bibliography '("~/Code/masterthesis/references.bib"))
 #+end_src
 
 * Simplenote
 #+begin_src emacs-lisp
 (require 'simplenote2)
 (setq simplenote2-email "benholz@mailbox.org")
-(setq simplenote2-password "Fi37b4f9&vx9*")
 (simplenote2-setup)
 #+end_src
 
