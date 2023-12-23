@@ -88,16 +88,16 @@ grep -v -E "(^$|#|\`\`\`)" archpgs.md | xargs paru -Si | grep error
     cheese
 
 ## Paru packages
-    # jmtpfs
-    # pferd
-    # nixfmt
-    # librewolf-bin
-    # betterbird-bin
-    # anki
-    # discord
-    # ungoogled-chromium-bin
-    # spotify
-    # drawio-desktop
+    jmtpfs
+    pferd
+    nixfmt
+    librewolf-bin
+    betterbird-bin
+    anki
+    discord
+    ungoogled-chromium-bin
+    spotify
+    drawio-desktop
 
 ## Fonts
     ttf-ibmplex-mono-nerd
