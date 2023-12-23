@@ -215,7 +215,7 @@ default_border pixel 2
 for_window [all] title_window_icon yes
 
 for_window [class="Chromium-browser"] border normal
-for_window [class="alacritty-floating"] floating enable
+
 # for_window [class="Chromium-browser"] titlebar none
 # for_window [class="chromium-browser"] border normal
 # for_window [class="chromium-browser"] titlebar none
