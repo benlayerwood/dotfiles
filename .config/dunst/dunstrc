@@ -24,7 +24,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = (300,600)
 
     # The maximum height of a single notification, excluding the frame.
     height = 300
@@ -123,7 +123,7 @@
 
     ### Text ###
 
-    font = Material-Design-Iconic-Font 11
+    font = Material-Design-Iconic-Font 9
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
