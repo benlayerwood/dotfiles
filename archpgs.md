@@ -1,6 +1,11 @@
 # Arch Packages
 
-## Essential files
+## Check if packages exist
+```
+grep -v -E "(^$|#|\`\`\`)" archpgs.md | xargs paru -Si | grep error
+```
+
+## Essential applications
     vim
     wget
     git
@@ -12,11 +17,11 @@
     alacritty
 
 ## System tools
-    exa
+    eza
     bat
     zip
     unzip
-    dig
+    bind
     vagrant
     ffmpeg
     rtkit
@@ -25,7 +30,6 @@
     imagemagick
     ripgrep
     btrfs-progs
-    libappimage
 
 ## Desktop-tools
     i3-wm
@@ -58,7 +62,6 @@
     gsettings-desktop-schemas
     gsettings-qt
     qt5ct
-    glib
     make
     cmake
     glslang
@@ -66,7 +69,6 @@
 ## Desktop apps
     vlc
     zathura
-    betterbird
     arandr
     flameshot
     gparted
@@ -75,29 +77,31 @@
     xsane
     nextcloud-client
     element-desktop
-    cinnamon.nemo
+    nemo
     baobab
     pdfarranger
     element-desktop
 
 ## Gnome apps
-    gnome.gnome-contacts
-    gnome.simple-scan
-    gnome.eog
-    gnome.cheese
+    simple-scan
+    eog
+    cheese
 
 ## Paru packages
-    jmtpfs
-    pferd
-    nixfmt
-    librewolf-bin
-    anki
-    discord
-    ungoogled-chromium-bin
-    spotify
-    morgen-bin
-    drawio-desktop
+    # jmtpfs
+    # pferd
+    # nixfmt
+    # librewolf-bin
+    # betterbird-bin
+    # anki
+    # discord
+    # ungoogled-chromium-bin
+    # spotify
+    # drawio-desktop
 
 ## Fonts
     ttf-ibmplex-mono-nerd
     noto-fonts-emoji
+
+## Graphics
+    mesa

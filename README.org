@@ -33,5 +33,6 @@ These are my personal configuration files for various applications.
 ** Further Applications
   * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automate display configuration/
   * [[.config/gtk-3.0]] /gnome application themes/
-** Nix
+** Operating Systems
  * [[nix/configuration.nix]] ([[https://nixos.org/][NixOS]]) /nixos configuration files/
+ * [[archpgs.md]] [[https://wiki.archlinux.org/][(Arch Linux]]) /packages for arch linux/
