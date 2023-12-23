@@ -15,8 +15,9 @@ These are my personal configuration files for various applications.
   * [[.config/alacritty]] ([[https://alacritty.org/][Alacritty]]) /rocks/
 ** Editors
   * [[.vimrc]] ([[https://www.vim.org/][Vim]]) /learn it!/
-  * [[.doom.d]] ([[https://github.com/hlissner/doom-emacs][Doom Emacs]]) /the dark side plus cookies/
+  * [[.doom.d/config.org]] ([[https://github.com/hlissner/doom-emacs][Doom Emacs]]) /the dark side plus cookies/
 ** Window Managers
+  * [[i3/config]] ([[https://i3wm.org/][i3]]) /improved tiling wm/
   * [[xmonad]] ([[https://xmonad.org][XMonad]]) /haskell window manager/
     → /Note/:
     - xmonad is built via [[https://docs.haskellstack.org/en/stable/README/][stack]]
@@ -30,5 +31,7 @@ These are my personal configuration files for various applications.
        =xmonad --restart=
   * [[.config/xmobar]] ([[https://github.com/jaor/xmobar][XMobar]]) /panel for xmonad/
 ** Further Applications
-  * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automize display configuration/
-  * [[.config/gtk-3.0]] /gnome application theming/
+  * [[.config/autorandr]] ([[https://github.com/phillipberndt/autorandr][Autorandr]]) /automate display configuration/
+  * [[.config/gtk-3.0]] /gnome application themes/
+** Nix
+ * [[nix/configuration.nix]] ([[https://nixos.org/][NixOS]]) /nixos configuration files/
