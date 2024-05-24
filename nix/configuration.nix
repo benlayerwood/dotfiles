@@ -6,19 +6,17 @@
 
 let
   essentials = with pkgs; [
-    vim
     wget
     git
     gcc
     fd
     bash
     zsh
-    emacs
     alacritty
   ];
 
   system-tools = with pkgs; [
-    exa
+    eza
     bat
     zip
     unzip
@@ -46,6 +44,7 @@ let
     gsettings-qt
     libsForQt5.qt5ct
     glib
+    polybarFull
   ];
 
   tools = with pkgs; [
@@ -59,17 +58,15 @@ let
     libclang
     rtags
     gvfs
-    gnome.gvfs
     cifs-utils
     nfs-utils
-    wireshark
+    tree-sitter
+    tree-sitter-grammars.tree-sitter-typst
   ];
 
   programming = with pkgs; [
     pipenv
     (python3.withPackages(ps: with ps; [ numpy scipy pandas matplotlib jupyter]))
-    jdk8
-    jupyter
     libcanberra-gtk3
     gsettings-desktop-schemas
     gsettings-qt
@@ -80,6 +77,13 @@ let
     glslang
     irony-server
     nixfmt
+    go
+    gopls
+    golangci-lint
+    golangci-lint-langserver
+    typst
+    typstfmt
+    typst-lsp
   ];
 
   desktop-apps = with pkgs; [
@@ -99,7 +103,6 @@ let
     autorandr
     xsane
     morgen
-    simplenote
     nextcloud-client
     element-desktop
     cinnamon.nemo
@@ -107,14 +110,18 @@ let
     drawio
     pdfarranger
     element-desktop
-    whatsapp-for-linux
   ];
 
-  gnome-apps = with pkgs; [
-    gnome.gnome-contacts
-    gnome.simple-scan
-    gnome.eog
-    gnome.cheese
+  gnome-apps = with pkgs.gnome; [
+    gnome-contacts
+    simple-scan
+    eog
+    cheese
+  ];
+
+  emacs-pkgs = with pkgs.emacsPackages; [
+    pytest
+    treesit-auto
   ];
 in
 {
@@ -135,7 +142,6 @@ in
   powerManagement.powertop.enable = true;
 
   networking.hostName = "hp-ben"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -205,11 +211,11 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages =
-    essentials ++ system-tools ++ desktop-tools ++ tools ++ programming ++ desktop-apps ++ gnome-apps;
+    essentials ++ system-tools ++ desktop-tools ++ tools ++ programming ++ desktop-apps ++ gnome-apps ++ emacs-pkgs;
 
   # Environment Variables
   environment.variables = {
-    EDITOR = "/run/current-system/sw/bin/vim";
+    EDITOR = "/home/ben/.nix-profile/bin/nvim";
     MONITOR = "HDMI-1";
     QT_QPA_PLATFORMTHEME = "qt5ct";
   };
@@ -230,7 +236,7 @@ in
   };
 
   # Fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     ibm-plex
     fira
@@ -242,6 +248,7 @@ in
     material-symbols
     dejavu_fonts
     powerline-fonts
+    jetbrains-mono
     (nerdfonts.override { fonts = [ "DroidSansMono" "NerdFontsSymbolsOnly"]; })
   ];
 
@@ -250,6 +257,11 @@ in
   programs.zsh.enable = true;
   programs.adb.enable = true;
   programs.java.enable = true;
+
+  programs.neovim = {
+   enable = true;
+   defaultEditor = true;
+  };
 
   services.gnome.gnome-keyring.enable = true;
   services.nginx = {
@@ -268,6 +280,8 @@ in
   };
 
   programs.wireshark.enable = true;
+
+  services.emacs.enable = true;
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
@@ -291,6 +305,12 @@ in
     natural-scroll=true
   '';
 
+  services.syncthing = {
+    enable = true;
+    user = "ben";
+    dataDir = "/home/ben/";
+    configDir = "/home/ben/.config/syncthing";
+  };
   services.printing.enable = true;
   services.system-config-printer.enable = true;
   services.avahi.enable = true;
@@ -304,12 +324,6 @@ in
   services.printing.drivers = [ pkgs.hplip ];
   services.udisks2.enable = true;
   services.teamviewer.enable = false;
-
-  # Enable VirtuelBox
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = ["ben"];
-  # virtualisation.virtualbox.host.enableExtensionPack = true;
-  # virtualisation.virtualbox.guest.enable = false;
 
   virtualisation.docker.enable = true;
   users.extraGroups.docker.members = ["ben"];
@@ -336,12 +350,17 @@ in
   networking.firewall.allowedUDPPorts = [ 161 162 49710 9100 8080];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
-  # networking.extraHosts = ''
-  #   10.0.0.1 sdnbw
-  # '';
+  networking.extraHosts = ''
+    10.0.0.1 sdnbw
+    193.196.36.102 bwcloud
+  '';
   # networking.bridges."lxcbr0" = {
   #   interfaces = [ "enp1s0" ];
   # };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -349,5 +368,6 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
+
